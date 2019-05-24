@@ -24,5 +24,10 @@ namespace Chenjiangcesuan
         {
             InitializeComponent();
         }
+
+        private void ClearBtn_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
