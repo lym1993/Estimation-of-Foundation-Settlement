@@ -49,13 +49,13 @@
                     </Grid.ColumnDefinitions>
                     <TextBlock Grid.Row="0" FontSize="20"  Width="auto" 
                                HorizontalAlignment="Left" VerticalAlignment="Center" Text="上部荷载(Mpa)" Margin="5"></TextBlock>
-                    <TextBox FontSize="20" HorizontalAlignment="Center" 
+                    <TextBox x:Name="load"  FontSize="20" HorizontalAlignment="Center" 
                              VerticalAlignment="Center" Grid.Row="0" Grid.Column="1" Width="100" Margin="5" ></TextBox>
                     <TextBlock Grid.Row="1" FontSize="20"  Width="auto" 
                                HorizontalAlignment="Left" VerticalAlignment="Center" Text="基础埋深(M)" Margin="5"></TextBlock>
-                    <TextBox FontSize="20" HorizontalAlignment="Center" 
+                    <TextBox x:Name="depth" FontSize="20" HorizontalAlignment="Center" 
                              VerticalAlignment="Center" Grid.Row="1" Grid.Column="1" Width="100" Margin="5" ></TextBox>
-                    <TextBlock Grid.Row="2" FontSize="20"  Width="auto" 
+                    <TextBlock x:Name="undergroudwater" Grid.Row="2" FontSize="20"  Width="auto" 
                                HorizontalAlignment="Left" VerticalAlignment="Center" Text="地下水位线(M)" Margin="5"></TextBlock>
                     <TextBox FontSize="20" HorizontalAlignment="Center" 
                              VerticalAlignment="Center" Grid.Row="2" Grid.Column="1" Width="100" Margin="5" ></TextBox>
@@ -73,14 +73,14 @@
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
                     <TextBlock Grid.Row="0" FontSize="20"  Width="auto" HorizontalAlignment="Left" VerticalAlignment="Center" Text="横向宽度b(M)" Margin="5"></TextBlock>
-                    <TextBox FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="0" Grid.Column="1" Width="100" Margin="5" ></TextBox>
+                    <TextBox x:Name="foundation_width" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="0" Grid.Column="1" Width="100" Margin="5" ></TextBox>
                     <TextBlock Grid.Row="1" FontSize="20"  Width="auto" HorizontalAlignment="Left" VerticalAlignment="Center" Text="竖向宽度l(M)" Margin="5"></TextBlock>
-                    <TextBox FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" Grid.Column="1" Width="100" Margin="5" ></TextBox>
+                    <TextBox x:Name="foundation_length" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" Grid.Column="1" Width="100" Margin="5" ></TextBox>
 
                 </Grid>
             </GroupBox>
             <StackPanel Grid.Column="2">
-                <Button x:Name="CalBtn" Width="100" Height="50" Content="计算" FontSize="30" Margin="10,40,10,20"></Button>
+                <Button x:Name="CalculateBtn" Width="100" Height="50" Content="计算" FontSize="30" Margin="10,40,10,20"></Button>
                 <Button x:Name="ClearBtn" Width="100" Height="50" Content="清除" FontSize="30" Margin="10" Click="ClearBtn_Click"></Button>
             </StackPanel>
         </Grid>

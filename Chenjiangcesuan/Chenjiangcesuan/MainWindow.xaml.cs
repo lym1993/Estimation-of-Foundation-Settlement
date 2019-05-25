@@ -23,11 +23,47 @@ namespace Chenjiangcesuan
         public MainWindow()
         {
             InitializeComponent();
+            
+        }
+              
+        //荷载
+        private double Load
+        {
+            get { return double.Parse(load.Text); }
+            set { Load = value; }
+        }
+        //基础埋深
+        private double Depth
+        {
+            get { return double.Parse(depth.Text); }
+            set { Load = value; }
+        }
+        //地下水位
+        private double UndergroudWater
+        {
+            get { return double.Parse(undergroudwater.Text); }
+            set { Load = value; }
+        }
+        //基础横向宽度
+        private double FoundationWidth
+        {
+            get { return double.Parse(foundation_width.Text); }
+            set { Load = value; }
+        }
+        //基础竖向宽度
+        private double FoundationLength
+        {
+            get { return double.Parse(foundation_length.Text); }
+            set { Load = value; }
         }
 
+        
+            
+
+        
         private void ClearBtn_Click(object sender, RoutedEventArgs e)
         {
-
+           
         }
     }
 }
