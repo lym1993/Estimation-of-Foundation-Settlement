@@ -5,13 +5,22 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Chenjiangcesuan"
         mc:Ignorable="d"
-        Title="地基沉降测算插件V1.0" Height="768" Width="1200">
+        Title="地基沉降测算插件V1.0" Height="768" Width="1024">
     <Window.Resources>
         <Style TargetType="{x:Type Border}" x:Key="gBox">
             <Setter Property="BorderBrush" Value="black"></Setter>
             <Setter Property="Padding" Value="5"></Setter>
             <Setter Property="CornerRadius" Value="2"></Setter>
             <Setter Property="BorderThickness" Value="1"></Setter>
+        </Style>
+        <Style TargetType="{x:Type TextBox}" x:Key="bBox">
+            <Setter Property="BorderBrush" Value="Black"/>
+            <Setter Property="Padding" Value="5"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="FontSize" Value="20"/>
+            <!--<Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>-->
+            <!--<Setter Property="Width" Value="200"/>-->
         </Style>
     </Window.Resources>
     
@@ -41,7 +50,7 @@
                     <TextBlock Grid.Row="0" FontSize="20"  Width="auto" 
                                HorizontalAlignment="Left" VerticalAlignment="Center" Text="上部荷载(Mpa)" Margin="5"></TextBlock>
                     <TextBox x:Name="load"  FontSize="20" HorizontalAlignment="Center" 
-                             VerticalAlignment="Center" Grid.Row="0" Grid.Column="1" Width="100" Margin="5"  ></TextBox>
+                             VerticalAlignment="Center" Grid.Row="0" Grid.Column="1" Width="100" Margin="5" ></TextBox>
                     <TextBlock Grid.Row="1" FontSize="20"  Width="auto" 
                                HorizontalAlignment="Left" VerticalAlignment="Center" Text="基础埋深(M)" Margin="5"></TextBlock>
                     <TextBox x:Name="depth" FontSize="20" HorizontalAlignment="Center" 
@@ -75,44 +84,199 @@
                 <Button x:Name="ClearBtn" Width="100" Height="50" Content="清除" FontSize="30" Margin="10" Click="ClearBtn_Click"></Button>
             </StackPanel>
         </Grid>
+
         <!--row2-->
         <Grid  Background="AliceBlue" Grid.Row="1" >
             <GroupBox Header="土力学指标" BorderBrush="Black">
                 <Grid>
                     <Grid.RowDefinitions>
-                        <RowDefinition MinHeight="300"></RowDefinition>
-                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+
                     </Grid.RowDefinitions>
-                    <StackPanel Height="40" Orientation="Horizontal"  Grid.Row="1">
-                        <Button x:Name="btnAdd" FontSize="20" Content="添加土层" Height="auto" Width="auto" HorizontalAlignment="Left" Margin="5" Click="btnAdd_Click"/>
-                        <Button x:Name="btnDel" FontSize="20" Content="删除土层" Height="auto" Width="auto" HorizontalAlignment="Left" Margin="5" Click="btnDel_Click"/>
-                        <ComboBox x:Name="cbbSelectMode" FontSize="20" Margin="5" SelectionChanged="CbbSelectMode_SelectionChanged"/>
-                    </StackPanel>
-                    <ScrollViewer Height="auto">
-                        <DataGrid  CanUserResizeRows="False" CanUserAddRows="False" CanUserSortColumns="False" 
-                              CanUserReorderColumns="False" AllowDrop="False" Grid.Row="0" MinHeight="200" 
-                                   LoadingRow="Datagrid1_LoadingRow" PreviewKeyDown="Datagrid1_PreviewKeyDown" FontSize="20" x:Name="datagrid1" AutoGenerateColumns="False" Margin="5">
-                            <DataGrid.Columns>
-                                <DataGridTemplateColumn  Header="操作" >
-                                    <DataGridTemplateColumn.CellTemplate>
-                                        <DataTemplate>
-                                            <CheckBox></CheckBox>
-                                        </DataTemplate>
-                                    </DataGridTemplateColumn.CellTemplate>
-                                </DataGridTemplateColumn>
-                                <DataGridTextColumn Header="土层厚度(m)" Binding="{Binding SoilThickness,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
-                                <DataGridTextColumn Header="重度(kN/m³)"  Binding="{Binding SoilUnitWeight,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
-                                <DataGridTextColumn Header="0kPa孔隙比"  Binding="{Binding Voidratio0kPa,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
-                                <DataGridTextColumn Header="50kPa孔隙比"  Binding="{Binding Voidratio50kPa,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
-                                <DataGridTextColumn Header="100kPa孔隙比"  Binding="{Binding Voidratio100kPa  ,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
-                                <DataGridTextColumn Header="200kPa孔隙比"  Binding="{Binding Voidratio200kPa,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
-                                <DataGridTextColumn Header="300kPa孔隙比"  Binding="{Binding Voidratio300kPa,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
-                                <DataGridTextColumn Header="400kPa孔隙比"  Binding="{Binding Voidratio400kPa,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
-                            </DataGrid.Columns>
-                        </DataGrid>
-                    </ScrollViewer>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Border Style="{StaticResource gBox}" Grid.RowSpan="3">
+                        <TextBlock Text="土层" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Border>
+                    <Border Style="{StaticResource gBox}"  Grid.Column="1" Grid.RowSpan ="3">
+                        <TextBlock Text="土层厚度(m)" FontSize="20" Height="auto" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Border>
+                    <Border Style="{StaticResource gBox}"  Grid.Column="2" Grid.RowSpan ="3">
+                        <TextBlock Text="重度γ(kN/m³)" FontSize="20" Height="auto" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Border>
+                    <Border Style="{StaticResource gBox}"  Grid.Column="3" Grid.ColumnSpan ="6">
+                        <TextBlock Text="孔隙比" FontSize="20" Height="auto" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Border>
+                    <Border Style="{StaticResource gBox}"  Grid.Row="1" Grid.Column="3" Grid.ColumnSpan ="6">
+                        <TextBlock Text="压力(kPa)" FontSize="20" Height="auto" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Border>
+                    <Border Style="{StaticResource gBox}"  Grid.Row="2" Grid.Column="3">
+                        <TextBlock Text="0" FontSize="20" Height="auto" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Border>
+                    <Border Style="{StaticResource gBox}"  Grid.Row="2" Grid.Column="4">
+                        <TextBlock Text="50" FontSize="20" Height="auto" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Border>
+                    <Border Style="{StaticResource gBox}"  Grid.Row="2" Grid.Column="5">
+                        <TextBlock Text="100" FontSize="20" Height="auto" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Border>
+                    <Border Style="{StaticResource gBox}"  Grid.Row="2" Grid.Column="6">
+                        <TextBlock Text="200" FontSize="20" Height="auto" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Border>
+                    <Border Style="{StaticResource gBox}"  Grid.Row="2" Grid.Column="7">
+                        <TextBlock Text="300" FontSize="20" Height="auto" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Border>
+                    <Border Style="{StaticResource gBox}"  Grid.Row="2" Grid.Column="8">
+                        <TextBlock Text="400" FontSize="20" Height="auto" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Border>
+                    <Border Style="{StaticResource gBox}"  Grid.Row="3" Grid.Column="0">
+                        <TextBlock Text="第一层" FontSize="20" Height="auto" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Border>
+                    <Border Style="{StaticResource gBox}"  Grid.Row="4" Grid.Column="0">
+                        <TextBlock Text="第二层" FontSize="20" Height="auto" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Border>
+                    <Border Style="{StaticResource gBox}"  Grid.Row="5" Grid.Column="0">
+                        <TextBlock Text="第三层" FontSize="20" Height="auto" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Border>
+                    <Border Style="{StaticResource gBox}"  Grid.Row="6" Grid.Column="0">
+                        <TextBlock Text="第四层" FontSize="20" Height="auto" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Border>
+                    <Border Style="{StaticResource gBox}"  Grid.Row="7" Grid.Column="0">
+                        <TextBlock Text="第五层" FontSize="20" Height="auto" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Border>
+                    <Border Style="{StaticResource gBox}"  Grid.Row="8" Grid.Column="0">
+                        <TextBlock Text="第六层" FontSize="20" Height="auto" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Border>
+                    <Border Style="{StaticResource gBox}"  Grid.Row="9" Grid.Column="0">
+                        <TextBlock Text="第七层" FontSize="20" Height="auto" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Border>
+                    <Border Style="{StaticResource gBox}"  Grid.Row="10" Grid.Column="0">
+                        <TextBlock Text="第八层" FontSize="20" Height="auto" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Border>
+                    <Border Style="{StaticResource gBox}"  Grid.Row="11" Grid.Column="0">
+                        <TextBlock Text="第九层" FontSize="20" Height="auto" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Border>
+                    <Border Style="{StaticResource gBox}"  Grid.Row="12" Grid.Column="0">
+                        <TextBlock Text="第十层" FontSize="20" Height="auto" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Border>
+                    <!--第一列-土层厚度-->
+                    <TextBox x:Name="soil_thickness_1st"  Style="{StaticResource bBox}" Grid.Row="3" Grid.Column="1" />
+                    <TextBox x:Name="soil_thickness_2st" Style="{StaticResource bBox}" Grid.Row="4" Grid.Column="1" />
+                    <TextBox x:Name="soil_thickness_3st" Style="{StaticResource bBox}" Grid.Row="5" Grid.Column="1" />
+                    <TextBox x:Name="soil_thickness_4st" Style="{StaticResource bBox}" Grid.Row="6" Grid.Column="1" />
+                    <TextBox x:Name="soil_thickness_5st" Style="{StaticResource bBox}" Grid.Row="7" Grid.Column="1" />
+                    <TextBox x:Name="soil_thickness_6st" Style="{StaticResource bBox}" Grid.Row="8" Grid.Column="1" />
+                    <TextBox x:Name="soil_thickness_7st" Style="{StaticResource bBox}" Grid.Row="9" Grid.Column="1" />
+                    <TextBox x:Name="soil_thickness_8st" Style="{StaticResource bBox}" Grid.Row="10" Grid.Column="1" />
+                    <TextBox x:Name="soil_thickness_9st" Style="{StaticResource bBox}" Grid.Row="11" Grid.Column="1" />
+                    <TextBox x:Name="soil_thickness_10st" Style="{StaticResource bBox}" Grid.Row="12" Grid.Column="1" />
+                    <!--第二列-土壤重度-->
+                    <TextBox x:Name="soil_unitweight_1st" Style="{StaticResource bBox}" Grid.Row="3" Grid.Column="2" />
+                    <TextBox x:Name="soil_unitweight_2st" Style="{StaticResource bBox}" Grid.Row="4" Grid.Column="2" />
+                    <TextBox x:Name="soil_unitweight_3st" Style="{StaticResource bBox}" Grid.Row="5" Grid.Column="2" />
+                    <TextBox x:Name="soil_unitweight_4st" Style="{StaticResource bBox}" Grid.Row="6" Grid.Column="2" />
+                    <TextBox x:Name="soil_unitweight_5st" Style="{StaticResource bBox}" Grid.Row="7" Grid.Column="2" />
+                    <TextBox x:Name="soil_unitweight_6st" Style="{StaticResource bBox}" Grid.Row="8" Grid.Column="2" />
+                    <TextBox x:Name="soil_unitweight_7st" Style="{StaticResource bBox}" Grid.Row="9" Grid.Column="2" />
+                    <TextBox x:Name="soil_unitweight_8st" Style="{StaticResource bBox}" Grid.Row="10" Grid.Column="2" />
+                    <TextBox x:Name="soil_unitweight_9st" Style="{StaticResource bBox}" Grid.Row="11" Grid.Column="2" />
+                    <TextBox x:Name="soil_unitweight_10st" Style="{StaticResource bBox}" Grid.Row="12" Grid.Column="2" />
+
+                    <!--第三列 0压力时孔隙比-->
+                    <TextBox x:Name="voidratio_0kPa_1st" Style="{StaticResource bBox}" Grid.Row="3" Grid.Column="3" />
+                    <TextBox x:Name="voidratio_0kPa_2st" Style="{StaticResource bBox}" Grid.Row="4" Grid.Column="3" />
+                    <TextBox x:Name="voidratio_0kPa_3st" Style="{StaticResource bBox}" Grid.Row="5" Grid.Column="3" />
+                    <TextBox x:Name="voidratio_0kPa_4st" Style="{StaticResource bBox}" Grid.Row="6" Grid.Column="3" />
+                    <TextBox x:Name="voidratio_0kPa_5st" Style="{StaticResource bBox}" Grid.Row="7" Grid.Column="3" />
+                    <TextBox x:Name="voidratio_0kPa_6st" Style="{StaticResource bBox}" Grid.Row="8" Grid.Column="3" />
+                    <TextBox x:Name="voidratio_0kPa_7st" Style="{StaticResource bBox}" Grid.Row="9" Grid.Column="3" />
+                    <TextBox x:Name="voidratio_0kPa_8st" Style="{StaticResource bBox}" Grid.Row="10" Grid.Column="3" />
+                    <TextBox x:Name="voidratio_0kPa_9st" Style="{StaticResource bBox}" Grid.Row="11" Grid.Column="3" />
+                    <TextBox x:Name="voidratio_0kPa_10st" Style="{StaticResource bBox}" Grid.Row="12" Grid.Column="3" />
+
+                    <!--第四列 50压力时孔隙比-->
+                    <TextBox x:Name="voidratio_50kPa_1st" Style="{StaticResource bBox}" Grid.Row="3" Grid.Column="4" />
+                    <TextBox x:Name="voidratio_50kPa_2st" Style="{StaticResource bBox}" Grid.Row="4" Grid.Column="4" />
+                    <TextBox x:Name="voidratio_50kPa_3st" Style="{StaticResource bBox}" Grid.Row="5" Grid.Column="4" />
+                    <TextBox x:Name="voidratio_50kPa_4st" Style="{StaticResource bBox}" Grid.Row="6" Grid.Column="4" />
+                    <TextBox x:Name="voidratio_50kPa_5st" Style="{StaticResource bBox}" Grid.Row="7" Grid.Column="4" />
+                    <TextBox x:Name="voidratio_50kPa_6st" Style="{StaticResource bBox}" Grid.Row="8" Grid.Column="4" />
+                    <TextBox x:Name="voidratio_50kPa_7st" Style="{StaticResource bBox}" Grid.Row="9" Grid.Column="4" />
+                    <TextBox x:Name="voidratio_50kPa_8st" Style="{StaticResource bBox}" Grid.Row="10" Grid.Column="4" />
+                    <TextBox x:Name="voidratio_50kPa_9st" Style="{StaticResource bBox}" Grid.Row="11" Grid.Column="4" />
+                    <TextBox x:Name="voidratio_50kPa_10st" Style="{StaticResource bBox}" Grid.Row="12" Grid.Column="4" />
+
+                    <!--第五列 100压力时孔隙比-->
+                    <TextBox x:Name="voidratio_100kPa_1st" Style="{StaticResource bBox}" Grid.Row="3" Grid.Column="5" />
+                    <TextBox x:Name="voidratio_100kPa_2st" Style="{StaticResource bBox}" Grid.Row="4" Grid.Column="5" />
+                    <TextBox x:Name="voidratio_100kPa_3st" Style="{StaticResource bBox}" Grid.Row="5" Grid.Column="5" />
+                    <TextBox x:Name="voidratio_100kPa_4st" Style="{StaticResource bBox}" Grid.Row="6" Grid.Column="5" />
+                    <TextBox x:Name="voidratio_100kPa_5st" Style="{StaticResource bBox}" Grid.Row="7" Grid.Column="5" />
+                    <TextBox x:Name="voidratio_100kPa_6st" Style="{StaticResource bBox}" Grid.Row="8" Grid.Column="5" />
+                    <TextBox x:Name="voidratio_100kPa_7st" Style="{StaticResource bBox}" Grid.Row="9" Grid.Column="5" />
+                    <TextBox x:Name="voidratio_100kPa_8st" Style="{StaticResource bBox}" Grid.Row="10" Grid.Column="5" />
+                    <TextBox x:Name="voidratio_100kPa_9st" Style="{StaticResource bBox}" Grid.Row="11" Grid.Column="5" />
+                    <TextBox x:Name="voidratio_100kPa_10st" Style="{StaticResource bBox}" Grid.Row="12" Grid.Column="5" />
+
+                    <!--第六列 200压力时孔隙比-->
+                    <TextBox x:Name="voidratio_200kPa_1st" Style="{StaticResource bBox}" Grid.Row="3" Grid.Column="6" />
+                    <TextBox x:Name="voidratio_200kPa_2st" Style="{StaticResource bBox}" Grid.Row="4" Grid.Column="6" />
+                    <TextBox x:Name="voidratio_200kPa_3st" Style="{StaticResource bBox}" Grid.Row="5" Grid.Column="6" />
+                    <TextBox x:Name="voidratio_200kPa_4st" Style="{StaticResource bBox}" Grid.Row="6" Grid.Column="6" />
+                    <TextBox x:Name="voidratio_200kPa_5st" Style="{StaticResource bBox}" Grid.Row="7" Grid.Column="6" />
+                    <TextBox x:Name="voidratio_200kPa_6st" Style="{StaticResource bBox}" Grid.Row="8" Grid.Column="6" />
+                    <TextBox x:Name="voidratio_200kPa_7st" Style="{StaticResource bBox}" Grid.Row="9" Grid.Column="6" />
+                    <TextBox x:Name="voidratio_200kPa_8st" Style="{StaticResource bBox}" Grid.Row="10" Grid.Column="6" />
+                    <TextBox x:Name="voidratio_200kPa_9st" Style="{StaticResource bBox}" Grid.Row="11" Grid.Column="6" />
+                    <TextBox x:Name="voidratio_200kPa_10st" Style="{StaticResource bBox}" Grid.Row="12" Grid.Column="6" />
+
+                    <!--第六列 200压力时孔隙比-->
+                    <TextBox x:Name="voidratio_300kPa_1st" Style="{StaticResource bBox}" Grid.Row="3" Grid.Column="7" />
+                    <TextBox x:Name="voidratio_300kPa_2st" Style="{StaticResource bBox}" Grid.Row="4" Grid.Column="7" />
+                    <TextBox x:Name="voidratio_300kPa_3st" Style="{StaticResource bBox}" Grid.Row="5" Grid.Column="7" />
+                    <TextBox x:Name="voidratio_300kPa_4st" Style="{StaticResource bBox}" Grid.Row="6" Grid.Column="7" />
+                    <TextBox x:Name="voidratio_300kPa_5st" Style="{StaticResource bBox}" Grid.Row="7" Grid.Column="7" />
+                    <TextBox x:Name="voidratio_300kPa_6st" Style="{StaticResource bBox}" Grid.Row="8" Grid.Column="7" />
+                    <TextBox x:Name="voidratio_300kPa_7st" Style="{StaticResource bBox}" Grid.Row="9" Grid.Column="7" />
+                    <TextBox x:Name="voidratio_300kPa_8st" Style="{StaticResource bBox}" Grid.Row="10" Grid.Column="7" />
+                    <TextBox x:Name="voidratio_300kPa_9st" Style="{StaticResource bBox}" Grid.Row="11" Grid.Column="7" />
+                    <TextBox x:Name="voidratio_300kPa_10st" Style="{StaticResource bBox}" Grid.Row="12" Grid.Column="7" />
+
+                    <!--第六列 200压力时孔隙比-->
+                    <TextBox x:Name="voidratio_400kPa_1st" Style="{StaticResource bBox}" Grid.Row="3" Grid.Column="8" />
+                    <TextBox x:Name="voidratio_400kPa_2st" Style="{StaticResource bBox}" Grid.Row="4" Grid.Column="8" />
+                    <TextBox x:Name="voidratio_400kPa_3st" Style="{StaticResource bBox}" Grid.Row="5" Grid.Column="8" />
+                    <TextBox x:Name="voidratio_400kPa_4st" Style="{StaticResource bBox}" Grid.Row="6" Grid.Column="8" />
+                    <TextBox x:Name="voidratio_400kPa_5st" Style="{StaticResource bBox}" Grid.Row="7" Grid.Column="8" />
+                    <TextBox x:Name="voidratio_400kPa_6st" Style="{StaticResource bBox}" Grid.Row="8" Grid.Column="8" />
+                    <TextBox x:Name="voidratio_400kPa_7st" Style="{StaticResource bBox}" Grid.Row="9" Grid.Column="8" />
+                    <TextBox x:Name="voidratio_400kPa_8st" Style="{StaticResource bBox}" Grid.Row="10" Grid.Column="8" />
+                    <TextBox x:Name="voidratio_400kPa_9st" Style="{StaticResource bBox}" Grid.Row="11" Grid.Column="8" />
+                    <TextBox x:Name="voidratio_400kPa_10st" Style="{StaticResource bBox}" Grid.Row="12" Grid.Column="8" />
                 </Grid>
             </GroupBox>
         </Grid>
+
     </Grid>
 </Window>
