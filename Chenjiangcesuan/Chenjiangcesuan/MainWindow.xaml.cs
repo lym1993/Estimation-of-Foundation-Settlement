@@ -27,23 +27,24 @@ namespace Chenjiangcesuan
         public MainWindow()
         {
             InitializeComponent();
-            
+            AddRow();
             GetComboBoxSource();
             datagrid1.ItemsSource = soilinformationsItems;
+
         }
 
         public void AddRow()
         {
             Soilinformation soilinformation = new Soilinformation();
 
-            soilinformation.SoilThickness = 0;
-            soilinformation.SoilUnitWeight = 0;
-            soilinformation.Voidratio0kPa = 0;
-            soilinformation.Voidratio50kPa = 0;
-            soilinformation.Voidratio100kPa = 0;
-            soilinformation.Voidratio200kPa = 0;
-            soilinformation.Voidratio300kPa = 0;
-            soilinformation.Voidratio400kPa = 0;
+            soilinformation.SoilThickness ="";
+            soilinformation.SoilUnitWeight ="";
+            soilinformation.Voidratio0kPa = "";
+            soilinformation.Voidratio50kPa = "";
+            soilinformation.Voidratio100kPa = "";
+            soilinformation.Voidratio200kPa = "";
+            soilinformation.Voidratio300kPa = "";
+            soilinformation.Voidratio400kPa = "";
 
             soilinformationsItems.Add(soilinformation);
         }

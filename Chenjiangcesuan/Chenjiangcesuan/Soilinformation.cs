@@ -16,62 +16,61 @@ namespace Chenjiangcesuan
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        public double SoilThickness
+        public string SoilThickness
         {
             get { return _soilThickness; }
             set { _soilThickness = value ; NotifyPropertyChanged("SoilThickness");}
         }
-        private double _soilThickness;
+        private string _soilThickness;
 
-        public double SoilUnitWeight
+        public string SoilUnitWeight
         {
             get { return _soilUnitWeight; }
             set { _soilUnitWeight = value;NotifyPropertyChanged("SoilUnitWeight"); }
         }
-        private double _soilUnitWeight;
+        private string _soilUnitWeight;
 
-        public double Voidratio0kPa
+        public string Voidratio0kPa
         {
             get { return _voidration0kPa; }
             set { _voidration0kPa = value;NotifyPropertyChanged(" Voidratio0kPa"); }
         }
-        private double _voidration0kPa;
+        private string _voidration0kPa;
 
-        public double Voidratio50kPa
+        public string Voidratio50kPa
         {
             get { return _voidration50kPa; }
             set { _voidration50kPa = value; NotifyPropertyChanged(" Voidratio50kPa"); }
         }
-        private double _voidration50kPa ;
+        private string _voidration50kPa ;
 
-        public double Voidratio100kPa
+        public string Voidratio100kPa
         {
             get { return _voidration100kPa; }
             set { _voidration100kPa = value; NotifyPropertyChanged(" Voidratio100kPa"); }
         }
-        private double _voidration100kPa;
+        private string _voidration100kPa;
 
-        public double Voidratio200kPa
+        public string Voidratio200kPa
         {
             get { return _voidration200kPa; }
             set { _voidration200kPa = value; NotifyPropertyChanged(" Voidratio200kPa"); }
         }
-        private double _voidration200kPa;
+        private string _voidration200kPa;
 
-        public double Voidratio300kPa
+        public string Voidratio300kPa
         {
             get { return _voidration300kPa; }
             set { _voidration300kPa = value; NotifyPropertyChanged(" Voidratio300kPa"); }
         }
-        private double _voidration300kPa;
+        private string _voidration300kPa;
 
-        public double Voidratio400kPa
+        public string Voidratio400kPa
         {
             get { return _voidration400kPa; }
             set { _voidration400kPa = value; NotifyPropertyChanged(" Voidratio400kPa"); }
         }
-        private double _voidration400kPa;
-       
-        
+        private string _voidration400kPa;
+             
     }
 }

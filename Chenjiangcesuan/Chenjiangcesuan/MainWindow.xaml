@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Chenjiangcesuan"
         mc:Ignorable="d"
-        Title="地基沉降测算插件V1.0" Height="768" Width="1200">
+        Title="地基沉降测算插件（规范法）V1.0" Height="768" Width="1200">
     <Window.Resources>
         <Style TargetType="{x:Type Border}" x:Key="gBox">
             <Setter Property="BorderBrush" Value="black"></Setter>
@@ -91,23 +91,72 @@
                     <ScrollViewer Height="auto">
                         <DataGrid  CanUserResizeRows="False" CanUserAddRows="False" CanUserSortColumns="False" 
                               CanUserReorderColumns="False" AllowDrop="False" Grid.Row="0" MinHeight="200" 
-                                   LoadingRow="Datagrid1_LoadingRow" PreviewKeyDown="Datagrid1_PreviewKeyDown" FontSize="20" x:Name="datagrid1" AutoGenerateColumns="False" Margin="5">
+                                   LoadingRow="Datagrid1_LoadingRow" PreviewKeyDown="Datagrid1_PreviewKeyDown" 
+                                   FontSize="20" x:Name="datagrid1" AutoGenerateColumns="False" Margin="5">
                             <DataGrid.Columns>
-                                <DataGridTemplateColumn  Header="操作" >
+                                <DataGridTemplateColumn Header="土层厚度(m)" Width="*">
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate>
-                                            <CheckBox></CheckBox>
+                                            <TextBox Text="{Binding SoilThickness,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
                                         </DataTemplate>
                                     </DataGridTemplateColumn.CellTemplate>
                                 </DataGridTemplateColumn>
-                                <DataGridTextColumn Header="土层厚度(m)" Binding="{Binding SoilThickness,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
-                                <DataGridTextColumn Header="重度(kN/m³)"  Binding="{Binding SoilUnitWeight,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
-                                <DataGridTextColumn Header="0kPa孔隙比"  Binding="{Binding Voidratio0kPa,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
-                                <DataGridTextColumn Header="50kPa孔隙比"  Binding="{Binding Voidratio50kPa,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
-                                <DataGridTextColumn Header="100kPa孔隙比"  Binding="{Binding Voidratio100kPa  ,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
-                                <DataGridTextColumn Header="200kPa孔隙比"  Binding="{Binding Voidratio200kPa,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
-                                <DataGridTextColumn Header="300kPa孔隙比"  Binding="{Binding Voidratio300kPa,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
-                                <DataGridTextColumn Header="400kPa孔隙比"  Binding="{Binding Voidratio400kPa,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+
+                                <DataGridTemplateColumn Header="重度(kN/m³)" Width="*">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBox Text="{Binding SoilUnitWeight,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+
+                                <DataGridTemplateColumn Header="0kPa孔隙比" Width="*">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBox Text="{Binding Voidratio0kPa,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+
+                                <DataGridTemplateColumn Header="50kPa孔隙比" Width="*">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBox Text="{Binding Voidratio50kPa,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+
+                                <DataGridTemplateColumn Header="100kPa孔隙比" Width="*">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBox Text="{Binding Voidratio100kPa,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+
+                                <DataGridTemplateColumn Header="200kPa孔隙比" Width="*">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBox Text="{Binding Voidratio200kPa,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+
+                                <DataGridTemplateColumn Header="300kPa孔隙比" Width="*">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBox Text="{Binding Voidratio300kPa,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+
+                                <DataGridTemplateColumn Header="400kPa孔隙比" Width="*">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBox Text="{Binding Voidratio400kPa,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
                             </DataGrid.Columns>
                         </DataGrid>
                     </ScrollViewer>
