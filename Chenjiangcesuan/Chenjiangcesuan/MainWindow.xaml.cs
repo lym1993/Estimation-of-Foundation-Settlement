@@ -61,9 +61,9 @@ namespace Chenjiangcesuan
         {
             InitializeComponent();
 
+            //初始化界面
             foundation_width.Text = Convert.ToString(4);
-            foundation_length.Text = Convert.ToString(4);
-
+            foundation_length.Text = Convert.ToString(4);           
             for(int i=0;i<=4;i++)
             {
                 AddRow();
@@ -74,7 +74,7 @@ namespace Chenjiangcesuan
         }
 
         //添加行方法
-        public void AddRow()
+        private void AddRow()
         {
             Soilinformation soilinformation = new Soilinformation();
 
@@ -108,6 +108,7 @@ namespace Chenjiangcesuan
             }
         }
        
+        //添加combobox源
         private void GetComboBoxSource()
         {
             cbbSelectMode.Items.Add(DataGridSelectionUnit.Cell);
@@ -159,32 +160,70 @@ namespace Chenjiangcesuan
         private void CalculateBtn_Click(object sender, RoutedEventArgs e)
         {
             //用户输入完成后，开始计算沉降            
-            //  n=z/b(变量)
+            //  n=z/b(变量) 其中z是距离基底的距离！
             //  m=l/b 
-            double m = double.Parse(foundation_length.Text) / double.Parse(foundation_width.Text) / 4;
+            double m = FoundationLength / FoundationWidth / 4;
+            get_aasb();
         }
 
-        //基底平均附加应力Average Additional Stress of Base
-        private double get_aasb(double a)
+        //基底处平均附加应力Average Additional Stress of Base
+        private double get_aasb()
         {
             double result;
+            //基础及其回填土土总重量
+            double temp1 = 20 * FoundationWidth * FoundationLength * (Depth - UndergroudWater)  //地下水位以上重度20
+                + 10 * FoundationWidth * FoundationLength * UndergroudWater;//地下水位以下重度10
 
-            //判断埋深是否超过第一层土层厚度          
-            if (Depth <= Convert.ToDouble(soilinformationsItems[0].SoilThickness))
+            //基底平均压力
+            double temp2 = (temp1 + Load) / (FoundationWidth * FoundationLength);
+
+            //基底处土的自重应力
+            double temp3=0;           
+            if(UndergroudWater==0|| UndergroudWater >= Depth)//无地下水或地下水深度大于基础埋深
             {
-                //小于第一层土厚度，不用划分土层，直接计算
-                result = (20 * FoundationLength * FoundationWidth + Load) / (FoundationLength * FoundationWidth) - Convert.ToDouble(soilinformationsItems[0].SoilUnitWeight);
-            }
-            //埋深超过第一层土
-            else
-            {
-                for (int i = soilinformationsItems.Count; i > 1; i--)
+                int i = 0; //土层索引
+                if(Depth <= Convert.ToDouble(soilinformationsItems[0].SoilThickness)) //基底在第一层土
                 {
-                    result = 0;
+                    temp3 = Depth *Convert.ToDouble(soilinformationsItems[0].SoilUnitWeight);
                 }
+                else  //基底在第i层土
+                {
+                    while(Depth>= Convert.ToDouble(soilinformationsItems[i].SoilThickness))
+                    {
+                        Depth -=Convert.ToDouble(soilinformationsItems[i].SoilThickness);
+                        i++;                      
+                    }
+                    double sum = 0;
+                    for(int a=0;a<i-1;a++)
+                    {
+                        sum+= Convert.ToDouble(soilinformationsItems[a].SoilThickness) * Convert.ToDouble(soilinformationsItems[a].SoilUnitWeight);
+                    }
+                    temp3 = sum + Depth * Convert.ToDouble(soilinformationsItems[i-1].SoilUnitWeight);//前几层的和加上最后一段可变的厚度
+                }
+            }         
+            else//有地下水并且地下水深度在基础层之间
+            {
+                //do something
             }
+            result = temp2 - temp3;
             return result;
         }
+
+        //public double get_depth() //定位基底所在的位置
+        //{
+        //    int i = 0;
+        //    double temp1 = 0;
+        //    if(Depth<= Convert.ToDouble(soilinformationsItems[i].SoilThickness)//基底位置在第一层土
+        //    {
+
+        //    }
+        //    else//基础跨越多层土
+        //    {
+        //        temp1 = Depth - Convert.ToDouble(soilinformationsItems[i].SoilThickness);
+        //        Depth = temp1;
+        //    }       
+        //}
+
 
         //附加应力平均系数average coefficient of additional stress
         //第一个参数是m=l/b；第二个参数是n=z/b；
