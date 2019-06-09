@@ -52,10 +52,9 @@ namespace Chenjiangcesuan
             set { Load = value; }
         }
         
-
         ObservableCollection<Soilinformation> soilinformationsItems = new
             ObservableCollection<Soilinformation>(); //实例化动态数据集合
-
+       
         //主函数
         public MainWindow()
         {
@@ -63,7 +62,7 @@ namespace Chenjiangcesuan
 
             //初始化界面
             foundation_width.Text = Convert.ToString(4);
-            foundation_length.Text = Convert.ToString(4);           
+            foundation_length.Text = Convert.ToString(4);            
             for(int i=0;i<=4;i++)
             {
                 AddRow();
@@ -88,6 +87,47 @@ namespace Chenjiangcesuan
             soilinformation.Voidratio400kPa = "";
 
             soilinformationsItems.Add(soilinformation);
+            
+        }
+
+        //计算按钮事件
+        private void CalculateBtn_Click(object sender, RoutedEventArgs e)
+        {
+
+            //用户输入完成后，开始计算沉降                      
+            ObservableCollection<Soilcalculate> soilcalculateresult = new
+            ObservableCollection<Soilcalculate>(); //实例化计算结果集合，生成新动态集合 soilcauculateresult
+
+            double temp1 = get_aasb(); //基底处平均附加应力 temp1
+
+            double m = FoundationLength / FoundationWidth;  // m=l/b 
+
+            List<double> list_z = new List<double>();//新建列表，此列表接收深度z的数值；
+            
+            for (int i=0;i<list_z.Count;i++)
+            {
+                Soilcalculate soilcalculate = new Soilcalculate();
+
+                soilcalculate.Distancefrombase = list_z[i];
+                soilcalculate.Length_Width =m;
+                soilcalculate.DFB_Width = list_z[i] / (FoundationWidth / 2);
+                soilcalculate.Average_Additional_Stress_Coefficient =4*get_acas(m,soilcalculate.DFB_Width);
+                soilcalculate.DFB_Average_Additional_Stress_Coefficient = list_z[i] * soilcalculate.Average_Additional_Stress_Coefficient;  
+                if(i==0)
+                {
+                    soilcalculate.DFB_Average_Additional_Stress_Coefficient_1 = 0;
+                }
+                else
+                {
+                    soilcalculate.DFB_Average_Additional_Stress_Coefficient_1= soilcalculate.DFB_Average_Additional_Stress_Coefficient
+                        - soilcalculateresult[i-1].DFB_Average_Additional_Stress_Coefficient;  //zα与z-1α-1差值
+                }
+
+                soilcalculateresult.Add(soilcalculate);//新的计算层加载到soilcaculate实例
+                
+            }
+
+
         }
 
         //添加土层按钮
@@ -154,19 +194,9 @@ namespace Chenjiangcesuan
             {
                 AddRow();
             }
-        }
+        }        
 
-        //计算按钮事件
-        private void CalculateBtn_Click(object sender, RoutedEventArgs e)
-        {
-            //用户输入完成后，开始计算沉降            
-            //  n=z/b(变量) 其中z是距离基底的距离！
-            //  m=l/b 
-            double m = FoundationLength / FoundationWidth / 4;
-            get_aasb();
-        }
-
-        //基底处平均附加应力Average Additional Stress of Base
+        //基底处平均附加应力 Average Additional Stress of Base
         private double get_aasb()
         {
             double result;
@@ -201,40 +231,54 @@ namespace Chenjiangcesuan
                     temp3 = sum + Depth * Convert.ToDouble(soilinformationsItems[i-1].SoilUnitWeight);//前几层的和加上最后一段可变的厚度
                 }
             }         
-            else//有地下水并且地下水深度在基础层之间
+            else//有地下水并且地下水深度在基础土层之间
             {
                 //do something
             }
+
             result = temp2 - temp3;
             return result;
         }
+       
+        
+        //判断基础在土层的位置
+        private int get_soillable() 
+        {
+            int i=0;
+            if (Depth <= Convert.ToDouble(soilinformationsItems[0].SoilThickness))//基础在第一层土
+            {
+                i = 0;
+            }
+            else
+            {
+                while (Depth >= Convert.ToDouble(soilinformationsItems[i].SoilThickness))
+                {
+                    Depth -= Convert.ToDouble(soilinformationsItems[i].SoilThickness);
+                    i++;
+                }
+            }
+            return i;  //基础位于第i层土
+        }
 
-        //public double get_depth() //定位基底所在的位置
-        //{
-        //    int i = 0;
-        //    double temp1 = 0;
-        //    if(Depth<= Convert.ToDouble(soilinformationsItems[i].SoilThickness)//基底位置在第一层土
-        //    {
-
-        //    }
-        //    else//基础跨越多层土
-        //    {
-        //        temp1 = Depth - Convert.ToDouble(soilinformationsItems[i].SoilThickness);
-        //        Depth = temp1;
-        //    }       
-        //}
-
-
-        //附加应力平均系数average coefficient of additional stress
+        //附加应力平均系数 Average coefficient of additional stress
         //第一个参数是m=l/b；第二个参数是n=z/b；
         private double get_acas(double m,double n)
         {
             double result;
-            double temp1 = Math.Pow(1 + m * m + n * n, 0.5);
-            double temp2 = Math.Pow(1 + m * m, 0.5);
-            result = 1 / (2 * Math.PI) * (Math.Atan(m/(n*temp1))
-                +m/n*Math.Log((temp1-1)*(temp2+1)/((temp1+1)*(temp2-1)),Math.E)
-                +1/n*Math.Log((temp1-m)*(temp2+m)/((temp1+m)*(temp2-m)),Math.E));
+            if (n == 0)
+            {
+                //在基底处时平均应力系数为0
+                result = 0.25;  
+            }
+            else
+            {
+                //附加应力平均系数公式
+                double temp1 = Math.Pow(1 + m * m + n * n, 0.5);
+                double temp2 = Math.Pow(1 + m * m, 0.5);
+                result = 1 / (2 * Math.PI) * (Math.Atan(m / (n * temp1))
+                    + m / n * Math.Log((temp1 - 1) * (temp2 + 1) / ((temp1 + 1) * (temp2 - 1)), Math.E)
+                    + 1 / n * Math.Log((temp1 - m) * (temp2 + m) / ((temp1 + m) * (temp2 - m)), Math.E));
+            }           
             return result;           
         }      
     }

@@ -1,0 +1,22 @@
+﻿<Window x:Class="Chenjiangcesuan.result1"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Chenjiangcesuan"
+        mc:Ignorable="d"
+        Title="计算结果" Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="390"/>
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <ScrollViewer Grid.Row="0">
+            <DataGrid x:Name="Cal_Result"></DataGrid>
+        </ScrollViewer>
+        <StackPanel Grid.Row="1" Orientation="Horizontal" >
+            <Button  Width="100" Height=" auto" Content="Ok" Margin="5" ></Button>
+            <Button  Width="100" Height=" auto" Content="Back" Margin="5" ></Button>
+        </StackPanel>
+    </Grid>
+</Window>
