@@ -33,12 +33,12 @@ namespace Chenjiangcesuan
         }
         private string _soilUnitWeight;
 
-        public double EffectiveUnitWeight
+        public double Haswater
         {
-            get { return _effectiveunitweight; }
-            set { _effectiveunitweight = value; NotifyPropertyChanged("EffectiveUnitWeight"); }
+            get { return _haswater; }
+            set { _haswater = value; NotifyPropertyChanged("Haswater"); }
         }
-        private double _effectiveunitweight;
+        private double _haswater;
 
         public string Voidratio0kPa
         {

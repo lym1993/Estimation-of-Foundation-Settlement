@@ -32,13 +32,13 @@ namespace Chenjiangcesuan
         }
         private double _naturalunitweight;
 
-        //有效重度effective unit weight
-        public double EffectiveUnitWeight
+        //是否含水Haswater
+        public double Haswater
         {
-            get { return _effectiveunitweight; }
-            set { _effectiveunitweight = value; NotifyPropertyChanged("EffectiveUnitWeight"); }
+            get { return _haswater; }
+            set { _haswater = value; NotifyPropertyChanged("Haswater"); }
         }
-        private double _effectiveunitweight;
+        private double _haswater;
 
         //土层自重应力Self weight stress of soil layer
         public double SelfWeightStressofSoilLayer
