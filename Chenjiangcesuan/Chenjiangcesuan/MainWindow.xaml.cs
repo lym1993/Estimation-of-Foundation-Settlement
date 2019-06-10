@@ -53,13 +53,18 @@ namespace Chenjiangcesuan
         }
         
         ObservableCollection<Soilinformation> soilinformationsItems = new
-            ObservableCollection<Soilinformation>(); //实例化动态数据集合
-       
+            ObservableCollection<Soilinformation>(); //实例化动态数据集合soilinformationsItems
+
+        ObservableCollection<Soilcalculate> soilcalculateresult = new
+            ObservableCollection<Soilcalculate>(); //实例化计算结果1集合，生成新动态集合 soilcauculateresult
+
+        ObservableCollection<Soilcalculatefinal> soilcalculatefinals = new
+            ObservableCollection<Soilcalculatefinal>(); //实例化计算结果2集合，生成新动态集合 soilcalculatefinals
+
         //主函数
         public MainWindow()
         {
             InitializeComponent();
-
             //初始化界面
             foundation_width.Text = Convert.ToString(4);
             foundation_length.Text = Convert.ToString(4);            
@@ -67,7 +72,6 @@ namespace Chenjiangcesuan
             {
                 AddRow();
             }
-
             GetComboBoxSource();
             datagrid1.ItemsSource = soilinformationsItems;
         }
@@ -93,16 +97,26 @@ namespace Chenjiangcesuan
         //计算按钮事件
         private void CalculateBtn_Click(object sender, RoutedEventArgs e)
         {
+            
+            double index = get_baseindex();//得到基础所在土层
+            double distance = get_distance();//得到基底距离下一土层厚度
+            List<double> list_layer = get_soillayerlist();//得到用户输入的土层信息表
 
-            //用户输入完成后，开始计算沉降                      
-            ObservableCollection<Soilcalculate> soilcalculateresult = new
-            ObservableCollection<Soilcalculate>(); //实例化计算结果集合，生成新动态集合 soilcauculateresult
+            if (b==0&&UndergroudWater==0)//flag为0，基底恰好位于土层分界点，且无地下水情况
+            {
 
+            }
+            //首先根据Depth和UndergroundWater重新划分计算土层
+            Soilinformation depth_soilinformation = new Soilinformation();
+            soilinformationsItems.Insert(0,depth_soilinformation);
+            
+          
             double temp1 = get_aasb(); //基底处平均附加应力 temp1
+            double m = FoundationLength / FoundationWidth;  // m=l/b确定之后一直是常量
 
-            double m = FoundationLength / FoundationWidth;  // m=l/b 
+            
 
-            List<double> list_z = new List<double>();//新建列表，此列表接收深度z的数值；
+            List<double> list_z = new List<double>();//新建列表，此列表接收距离基底深度z的数值
             
             for (int i=0;i<list_z.Count;i++)
             {
@@ -122,11 +136,14 @@ namespace Chenjiangcesuan
                     soilcalculate.DFB_Average_Additional_Stress_Coefficient_1= soilcalculate.DFB_Average_Additional_Stress_Coefficient
                         - soilcalculateresult[i-1].DFB_Average_Additional_Stress_Coefficient;  //zα与z-1α-1差值
                 }
-
-                soilcalculateresult.Add(soilcalculate);//新的计算层加载到soilcaculate实例
-                
+                soilcalculateresult.Add(soilcalculate);//新的计算层加载到soilcaculate实例            
             }
 
+            //计算框2 
+            for(int i=0;i<list_z.Count-1;i++)
+            {
+
+            }
 
         }
 
@@ -239,27 +256,7 @@ namespace Chenjiangcesuan
             result = temp2 - temp3;
             return result;
         }
-       
-        
-        //判断基础在土层的位置
-        private int get_soillable() 
-        {
-            int i=0;
-            if (Depth <= Convert.ToDouble(soilinformationsItems[0].SoilThickness))//基础在第一层土
-            {
-                i = 0;
-            }
-            else
-            {
-                while (Depth >= Convert.ToDouble(soilinformationsItems[i].SoilThickness))
-                {
-                    Depth -= Convert.ToDouble(soilinformationsItems[i].SoilThickness);
-                    i++;
-                }
-            }
-            return i;  //基础位于第i层土
-        }
-
+         
         //附加应力平均系数 Average coefficient of additional stress
         //第一个参数是m=l/b；第二个参数是n=z/b；
         private double get_acas(double m,double n)
@@ -280,6 +277,51 @@ namespace Chenjiangcesuan
                     + 1 / n * Math.Log((temp1 - m) * (temp2 + m) / ((temp1 + m) * (temp2 - m)), Math.E));
             }           
             return result;           
-        }      
+        }
+
+        //得到基础在土层中位置的索引
+        private double get_baseindex()
+        {
+            List<double> list = get_soillayerlist();
+            double distance = 0;
+            double a = 0;          
+            for (int i = 0; i < soilinformationsItems.Count; i++)
+            {
+                distance += list[i];
+                if (Depth <= distance)
+                {
+                    a = i;
+                }
+            }
+            return a;
+        }
+
+        //得到基底距离下一层土的距离       
+        private double get_distance()
+        {
+            List<double>list= get_soillayerlist();
+            double distance = 0;
+            double a = 0;
+            for(int i=0;i<soilinformationsItems.Count;i++)
+            {
+                distance += list[i];
+                if(Depth<=distance)
+                {
+                    a= distance - Depth;
+                }
+            }
+            return a ;             
+        }
+
+        //得到用户输入土层列表
+        private List<double> get_soillayerlist()
+        {
+            List<double> list = new List<double>();
+            for(int i=0;i<soilinformationsItems.Count;i++)
+            {
+                list.Add(Convert.ToDouble(soilinformationsItems[i].SoilThickness));
+            }
+            return list;
+        }
     }
 }

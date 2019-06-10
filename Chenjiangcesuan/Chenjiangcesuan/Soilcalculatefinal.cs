@@ -9,6 +9,7 @@ namespace Chenjiangcesuan
 {
     class Soilcalculatefinal: INotifyPropertyChanged
     {
+        //此类用于展示最终计算结果
         public event PropertyChangedEventHandler PropertyChanged;
         private void NotifyPropertyChanged(string propertyName)
         {
@@ -22,6 +23,22 @@ namespace Chenjiangcesuan
             set { _layerdepth = value; NotifyPropertyChanged("LayerDepth"); }
         }
         private double _layerdepth;
+
+        //天然重度Natural unit weight
+        public double NaturalUnitWeight
+        {
+            get { return _naturalunitweight; }
+            set { _naturalunitweight = value; NotifyPropertyChanged("NaturalUnitWeight"); }
+        }
+        private double _naturalunitweight;
+
+        //有效重度effective unit weight
+        public double EffectiveUnitWeight
+        {
+            get { return _effectiveunitweight; }
+            set { _effectiveunitweight = value; NotifyPropertyChanged("EffectiveUnitWeight"); }
+        }
+        private double _effectiveunitweight;
 
         //土层自重应力Self weight stress of soil layer
         public double SelfWeightStressofSoilLayer
@@ -79,7 +96,7 @@ namespace Chenjiangcesuan
         }
         private double _e2i;
 
-        //Esi
+        //压缩模量Esi
         public double Esi
         {
             get { return _esi; }

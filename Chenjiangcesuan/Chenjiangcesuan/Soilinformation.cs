@@ -8,6 +8,8 @@ using System.Threading.Tasks;
 namespace Chenjiangcesuan
 {
     //定义土层信息类，该类继承于 INotifyPropertyChanged类，与前台datagrid实行双向绑定。
+    //用于收集用户输入信息
+
     public class Soilinformation : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
@@ -30,6 +32,13 @@ namespace Chenjiangcesuan
             set { _soilUnitWeight = value;NotifyPropertyChanged("SoilUnitWeight"); }
         }
         private string _soilUnitWeight;
+
+        public double EffectiveUnitWeight
+        {
+            get { return _effectiveunitweight; }
+            set { _effectiveunitweight = value; NotifyPropertyChanged("EffectiveUnitWeight"); }
+        }
+        private double _effectiveunitweight;
 
         public string Voidratio0kPa
         {
