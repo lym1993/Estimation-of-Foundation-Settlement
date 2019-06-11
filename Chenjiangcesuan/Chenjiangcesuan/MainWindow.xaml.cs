@@ -102,15 +102,15 @@ namespace Chenjiangcesuan
         private void CalculateBtn_Click(object sender, RoutedEventArgs e)
         {
             double m = FoundationLength / FoundationWidth;  // m=l/b确定之后一直是常量
-            data_processing1st();
-            get_aasb();
+            data_processing1st();//处理用户输入数据
+            get_aasb();//基底平均附加应力
+
 
             //List<double> list_z = new List<double>();//新建列表，此列表接收距离基底深度z的数值
 
             //for (int i = 0; i < list_z.Count; i++)
             //{
             //    Soilcalculate soilcalculate = new Soilcalculate();
-
             //    soilcalculate.Distancefrombase = list_z[i];
             //    soilcalculate.Length_Width = m;
             //    soilcalculate.DFB_Width = list_z[i] / (FoundationWidth / 2);
@@ -421,7 +421,6 @@ namespace Chenjiangcesuan
                     soilinformationsItems.RemoveAt(i);
                 }
             }
-
         }
     }
 }
