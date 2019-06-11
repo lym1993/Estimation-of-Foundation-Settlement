@@ -100,19 +100,14 @@ namespace Chenjiangcesuan
         //计算按钮事件
         private void CalculateBtn_Click(object sender, RoutedEventArgs e)
         {
-            calsoilinformationsItems = soilinformationsItems;//等下需要进行分层的动态集合（防止更改soilinformation导致前台窗口变化）
+            calsoilinformationsItems = soilinformationsItems;//等下需要进行分层的动态集合（防止更改soilinformation导致前台窗口变化）            
 
             double m = FoundationLength / FoundationWidth;  // m=l/b确定之后一直是常量
             int index = get_baseindex();//基础所在土层
-            double distance = get_distance();//基底距离下一土层厚度
-            int index_water = get_waterindex();//地下水所在土层
-            double distance_water = get_waterdistance();//地下水距离下一层土的厚度
+            double distance = get_distance();//基底距离下一土层厚度         
             List<double> list_layer = get_soillayerlist();  //用户输入的土层信息表
             double aasb = get_aasb();   //基底处平均附加应力 aasb
             
-
-            //if (distance==0&&UndergroudWater==0)//flag为0，基底恰好位于土层分界点，且无地下水情况
-
             //根据埋深Depth重新划分土层
             //基础上部土层
             Soilinformation upbase_soilinformation = new Soilinformation();
@@ -124,9 +119,8 @@ namespace Chenjiangcesuan
             upbase_soilinformation.Voidratio100kPa = Convert.ToString(Convert.ToDouble(soilinformationsItems[index].Voidratio100kPa));
             upbase_soilinformation.Voidratio200kPa = Convert.ToString(Convert.ToDouble(soilinformationsItems[index].Voidratio200kPa));
             upbase_soilinformation.Voidratio300kPa = Convert.ToString(Convert.ToDouble(soilinformationsItems[index].Voidratio300kPa));
-            upbase_soilinformation.Voidratio400kPa = Convert.ToString(Convert.ToDouble(soilinformationsItems[index].Voidratio400kPa));
-            //将上半层插入index处，被分解土层移到index+1位置
-            calsoilinformationsItems.Insert(index,upbase_soilinformation);
+            upbase_soilinformation.Voidratio400kPa = Convert.ToString(Convert.ToDouble(soilinformationsItems[index].Voidratio400kPa));            
+            calsoilinformationsItems.Insert(index,upbase_soilinformation);//将上半层插入index处，被分解土层移到index+1位置
 
             //基础下部土层（为0时基底位于土层处）
             Soilinformation downbase_soilinformation = new Soilinformation();
@@ -139,41 +133,80 @@ namespace Chenjiangcesuan
             downbase_soilinformation.Voidratio200kPa = Convert.ToString(Convert.ToDouble(soilinformationsItems[index].Voidratio200kPa));
             downbase_soilinformation.Voidratio300kPa = Convert.ToString(Convert.ToDouble(soilinformationsItems[index].Voidratio300kPa));
             downbase_soilinformation.Voidratio400kPa = Convert.ToString(Convert.ToDouble(soilinformationsItems[index].Voidratio400kPa));
-            //将下半层插入index+1处，被分解土层移动到index+2位置
-            calsoilinformationsItems.Insert(index+1, downbase_soilinformation);
-            //移除被分解的土层
-            calsoilinformationsItems.RemoveAt(index+2);
+            
+            calsoilinformationsItems.Insert(index+1, downbase_soilinformation);//将下半层插入index+1处，被分解土层移动到index+2位置            
+            calsoilinformationsItems.RemoveAt(index+2);//移除被分解的土层           
+            List<double> list_updownlayer = get_baselayerlist();//对划分的第一个列表提取深度
 
+            int index_water = get_waterindex();//地下水所在土层
+            double distance_water = get_waterdistance();//地下水距离下一层土的厚度
 
-
-            List<double> list_z = new List<double>();//新建列表，此列表接收距离基底深度z的数值
-
-            for (int i = 0; i < list_z.Count; i++)
+            //重新定位与划分含水层
+            //含水层上部分haswater属性均设置为0
+            for (int i = 0; i < index_water; i++)
             {
-                Soilcalculate soilcalculate = new Soilcalculate();
+                calsoilinformationsItems[i].Haswater = 0;
+            }
+            //含水层上部土层
+            Soilinformation upwater_soilinformation = new Soilinformation();
+            upwater_soilinformation.SoilThickness = Convert.ToString(Convert.ToDouble(calsoilinformationsItems[index_water].SoilThickness)-distance_water);
+            upwater_soilinformation.SoilUnitWeight = Convert.ToString(Convert.ToDouble(calsoilinformationsItems[index_water].SoilUnitWeight));
+            upwater_soilinformation.Haswater = 0;
+            upwater_soilinformation.Voidratio0kPa = Convert.ToString(Convert.ToDouble(calsoilinformationsItems[index_water].Voidratio0kPa));
+            upwater_soilinformation.Voidratio50kPa = Convert.ToString(Convert.ToDouble(calsoilinformationsItems[index_water].Voidratio50kPa));
+            upwater_soilinformation.Voidratio100kPa = Convert.ToString(Convert.ToDouble(calsoilinformationsItems[index_water].Voidratio100kPa));
+            upwater_soilinformation.Voidratio200kPa = Convert.ToString(Convert.ToDouble(calsoilinformationsItems[index_water].Voidratio200kPa));
+            upwater_soilinformation.Voidratio300kPa = Convert.ToString(Convert.ToDouble(calsoilinformationsItems[index_water].Voidratio300kPa));
+            upwater_soilinformation.Voidratio400kPa = Convert.ToString(Convert.ToDouble(calsoilinformationsItems[index_water].Voidratio400kPa));
+            calsoilinformationsItems.Insert(index_water, upwater_soilinformation);//上半层插入index_water处，被分解土层移动到index+1位置
 
-                soilcalculate.Distancefrombase = list_z[i];
-                soilcalculate.Length_Width = m;
-                soilcalculate.DFB_Width = list_z[i] / (FoundationWidth / 2);
-                soilcalculate.Average_Additional_Stress_Coefficient = 4 * get_acas(m, soilcalculate.DFB_Width);
-                soilcalculate.DFB_Average_Additional_Stress_Coefficient = list_z[i] * soilcalculate.Average_Additional_Stress_Coefficient;
-                if (i == 0)
-                {
-                    soilcalculate.DFB_Average_Additional_Stress_Coefficient_1 = 0;
-                }
-                else
-                {
-                    soilcalculate.DFB_Average_Additional_Stress_Coefficient_1 = soilcalculate.DFB_Average_Additional_Stress_Coefficient
-                        - soilcalculateresult[i - 1].DFB_Average_Additional_Stress_Coefficient;  //zα与z-1α-1差值
-                }
-                soilcalculateresult.Add(soilcalculate);//新的计算层加载到soilcaculate实例            
+            //含水层下部土层
+            Soilinformation downwater_soilinformation = new Soilinformation();
+            downwater_soilinformation.SoilThickness = Convert.ToString(distance_water);
+            downwater_soilinformation.SoilUnitWeight = Convert.ToString(Convert.ToDouble(calsoilinformationsItems[index_water].SoilUnitWeight));
+            downwater_soilinformation.Haswater = 10;   //地下水位下方土层均为10
+            downwater_soilinformation.Voidratio0kPa = Convert.ToString(Convert.ToDouble(calsoilinformationsItems[index_water].Voidratio0kPa));
+            downwater_soilinformation.Voidratio50kPa = Convert.ToString(Convert.ToDouble(calsoilinformationsItems[index_water].Voidratio50kPa));
+            downwater_soilinformation.Voidratio100kPa = Convert.ToString(Convert.ToDouble(calsoilinformationsItems[index_water].Voidratio100kPa));
+            downwater_soilinformation.Voidratio200kPa = Convert.ToString(Convert.ToDouble(calsoilinformationsItems[index_water].Voidratio200kPa));
+            downwater_soilinformation.Voidratio300kPa = Convert.ToString(Convert.ToDouble(calsoilinformationsItems[index_water].Voidratio300kPa));
+            downwater_soilinformation.Voidratio400kPa = Convert.ToString(Convert.ToDouble(calsoilinformationsItems[index_water].Voidratio400kPa));
+            calsoilinformationsItems.Insert(index_water+1, downwater_soilinformation);//下半层插入index_water+1处，被分解土层移动到index+2位置
+            calsoilinformationsItems.RemoveAt(index_water + 2);//移除被分解的含水土层
+            //地下水位线以下haswater属性均设置为10
+            for(int i=index_water+1;i<calsoilinformationsItems.Count;i++)
+            {
+                calsoilinformationsItems[i].Haswater = 10;
             }
 
-            //计算框2 
-            for (int i = 0; i < list_z.Count - 1; i++)
-            {
 
-            }
+
+
+
+            //List<double> list_z = new List<double>();//新建列表，此列表接收距离基底深度z的数值
+
+            //for (int i = 0; i < list_z.Count; i++)
+            //{
+            //    Soilcalculate soilcalculate = new Soilcalculate();
+
+            //    soilcalculate.Distancefrombase = list_z[i];
+            //    soilcalculate.Length_Width = m;
+            //    soilcalculate.DFB_Width = list_z[i] / (FoundationWidth / 2);
+            //    soilcalculate.Average_Additional_Stress_Coefficient = 4 * get_acas(m, soilcalculate.DFB_Width);
+            //    soilcalculate.DFB_Average_Additional_Stress_Coefficient = list_z[i] * soilcalculate.Average_Additional_Stress_Coefficient;
+            //    if (i == 0)
+            //    {
+            //        soilcalculate.DFB_Average_Additional_Stress_Coefficient_1 = 0;
+            //    }
+            //    else
+            //    {
+            //        soilcalculate.DFB_Average_Additional_Stress_Coefficient_1 = soilcalculate.DFB_Average_Additional_Stress_Coefficient
+            //            - soilcalculateresult[i - 1].DFB_Average_Additional_Stress_Coefficient;  //zα与z-1α-1差值
+            //    }
+            //    soilcalculateresult.Add(soilcalculate);//新的计算层加载到soilcaculate实例            
+            //}
+
+        
 
         }
 
@@ -308,7 +341,7 @@ namespace Chenjiangcesuan
             return result;
         }
 
-        //得到基础在土层中位置的索引
+        //基础在土层中位置的索引
         private int get_baseindex()
         {
             List<double> list = get_soillayerlist();
@@ -325,7 +358,7 @@ namespace Chenjiangcesuan
             return a;
         }
 
-        //得到基底距离下一层土的距离       
+        //基底距离下一层土的距离       
         private double get_distance()
         {
             List<double> list = get_soillayerlist();
@@ -342,7 +375,7 @@ namespace Chenjiangcesuan
             return a;
         }
 
-        //得到用户输入的土层列表
+        //用户输入的土层列表
         private List<double> get_soillayerlist()
         {
             List<double> list = new List<double>();
@@ -353,18 +386,49 @@ namespace Chenjiangcesuan
             return list;
         }
 
+        //依据基础埋深新划分的土层列表
+        private List<double> get_baselayerlist()
+        {
+            List<double> list = new List<double>();
+            for (int i = 0; i < calsoilinformationsItems.Count; i++)
+            {
+                list.Add(Convert.ToDouble(calsoilinformationsItems[i].SoilThickness));
+            }
+            return list;
+        }
+
         //地下水位在土层位置索引
         private int get_waterindex()
         {
+            List<double> list = get_baselayerlist();
+            double distance = 0;
             int a = 0;
+            for (int i = 0; i < calsoilinformationsItems.Count; i++)
+            {
+                distance += list[i];
+                if (UndergroudWater <= distance)
+                {
+                    a = i;
+                }
+            }
             return a;
         }
 
         //地下水位距离土层的距离
         private double get_waterdistance()
         {
+            List<double> list = get_baselayerlist();
             double distance = 0;
-            return distance;
+            double a = 0;
+            for (int i = 0; i < calsoilinformationsItems.Count; i++)
+            {
+                distance += list[i];
+                if (UndergroudWater <= distance)
+                {
+                    a = distance-UndergroudWater;
+                }
+            }
+            return a;
         }
 
     }
