@@ -64,53 +64,53 @@ namespace Chenjiangcesuan
         }
         private double _dfb_average_additional_stress_coefficient_1;
 
-        //cal0kpa
-        public double CalVoidratio0kPa
-        {
-            get { return _calvoidration0kPa; }
-            set { _calvoidration0kPa = value; NotifyPropertyChanged("CalVoidratio0kPa"); }
-        }
-        private double _calvoidration0kPa;
+        ////cal0kpa
+        //public double CalVoidratio0kPa
+        //{
+        //    get { return _calvoidration0kPa; }
+        //    set { _calvoidration0kPa = value; NotifyPropertyChanged("CalVoidratio0kPa"); }
+        //}
+        //private double _calvoidration0kPa;
 
-        //cal50kpa
-        public double CalVoidratio50kPa
-        {
-            get { return _calvoidration50kPa; }
-            set { _calvoidration50kPa = value; NotifyPropertyChanged("CalVoidratio50kPa"); }
-        }
-        private double _calvoidration50kPa;
+        ////cal50kpa
+        //public double CalVoidratio50kPa
+        //{
+        //    get { return _calvoidration50kPa; }
+        //    set { _calvoidration50kPa = value; NotifyPropertyChanged("CalVoidratio50kPa"); }
+        //}
+        //private double _calvoidration50kPa;
 
-        //cal100kpa
-        public double CalVoidratio100kPa
-        {
-            get { return _calvoidration100kPa; }
-            set { _calvoidration100kPa = value; NotifyPropertyChanged("CalVoidratio100kPa"); }
-        }
-        private double _calvoidration100kPa;
+        ////cal100kpa
+        //public double CalVoidratio100kPa
+        //{
+        //    get { return _calvoidration100kPa; }
+        //    set { _calvoidration100kPa = value; NotifyPropertyChanged("CalVoidratio100kPa"); }
+        //}
+        //private double _calvoidration100kPa;
 
-        //cal200kpa
-        public double CalVoidratio200kPa
-        {
-            get { return _calvoidration200kPa; }
-            set { _calvoidration200kPa = value; NotifyPropertyChanged("CalVoidratio200kPa"); }
-        }
-        private double _calvoidration200kPa;
+        ////cal200kpa
+        //public double CalVoidratio200kPa
+        //{
+        //    get { return _calvoidration200kPa; }
+        //    set { _calvoidration200kPa = value; NotifyPropertyChanged("CalVoidratio200kPa"); }
+        //}
+        //private double _calvoidration200kPa;
 
-        //cal300kpa
-        public double CalVoidratio300kPa
-        {
-            get { return _calvoidration300kPa; }
-            set { _calvoidration300kPa = value; NotifyPropertyChanged("CalVoidratio300kPa"); }
-        }
-        private double _calvoidration300kPa;
+        ////cal300kpa
+        //public double CalVoidratio300kPa
+        //{
+        //    get { return _calvoidration300kPa; }
+        //    set { _calvoidration300kPa = value; NotifyPropertyChanged("CalVoidratio300kPa"); }
+        //}
+        //private double _calvoidration300kPa;
 
-        //cal400kpa
-        public double CalVoidratio400kPa
-        {
-            get { return _calvoidration400kPa; }
-            set { _calvoidration400kPa = value; NotifyPropertyChanged("CalVoidratio400kPa"); }
-        }
-        private double _calvoidration400kPa;
+        ////cal400kpa
+        //public double CalVoidratio400kPa
+        //{
+        //    get { return _calvoidration400kPa; }
+        //    set { _calvoidration400kPa = value; NotifyPropertyChanged("CalVoidratio400kPa"); }
+        //}
+        //private double _calvoidration400kPa;
 
     }
 

@@ -17,12 +17,12 @@ namespace Chenjiangcesuan
         }
 
         //分层深度 LayerDepth
-        public double LayerDepth
+        public string LayerDepth
         {
             get { return _layerdepth; }
             set { _layerdepth = value; NotifyPropertyChanged("LayerDepth"); }
         }
-        private double _layerdepth;
+        private string _layerdepth;
 
         //天然重度Natural unit weight
         public double NaturalUnitWeight
