@@ -68,7 +68,7 @@ namespace Chenjiangcesuan
         public double AdditionalStress
         {
             get { return _additionalstress; }
-            set { _layerthickness = value; NotifyPropertyChanged("AdditionalStress"); }
+            set { _additionalstress = value; NotifyPropertyChanged("AdditionalStress"); }
         }
         private double _additionalstress;
 
@@ -120,5 +120,18 @@ namespace Chenjiangcesuan
         }
         private double _totaldeformationofsoillayer;
 
+        public double Mark1
+        {
+            get { return _mark1; }
+            set { _mark1 = value; NotifyPropertyChanged("Mark1"); }
+        }
+        private double _mark1;
+
+        public double Mark2
+        {
+            get { return _mark2; }
+            set { _mark2 = value; NotifyPropertyChanged("Mark2"); }
+        }
+        private double _mark2;
     }
 }

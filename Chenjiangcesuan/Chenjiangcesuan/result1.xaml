@@ -8,13 +8,14 @@
         Title="计算结果（第一页）" Height="450" Width="800">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="390"/>
-            <RowDefinition />
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="35"/>
         </Grid.RowDefinitions>
         <ScrollViewer Grid.Row="0">
-            <DataGrid x:Name="Cal_Result">
+            <DataGrid FontSize="20" CanUserResizeRows="False" CanUserAddRows="False" CanUserSortColumns="False" 
+                              CanUserReorderColumns="False" AllowDrop="False" x:Name="Cal_Result">
                 <DataGrid.Columns>
-                    <DataGridTemplateColumn Header="z(距离基底深度)/m" Width="*">
+                    <DataGridTemplateColumn Header="z(距离基底深度)/m"  Width="auto">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBlock Text="{Binding Distancefrombase,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
@@ -22,7 +23,7 @@
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
 
-                    <DataGridTemplateColumn Header="l/b" Width="*">
+                    <DataGridTemplateColumn Header="l/b" Width="auto">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBlock Text="{Binding Length_Width,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
@@ -30,7 +31,7 @@
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
 
-                    <DataGridTemplateColumn Header="z/b" Width="*">
+                    <DataGridTemplateColumn Header="z/b" Width="auto">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBlock Text="{Binding DFB_Width,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
@@ -38,7 +39,7 @@
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
 
-                    <DataGridTemplateColumn Header="α平均值" Width="*">
+                    <DataGridTemplateColumn Header="平均附加应力系数" Width="auto">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBlock Text="{Binding Average_Additional_Stress_Coefficient,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
@@ -46,7 +47,7 @@
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
 
-                    <DataGridTemplateColumn Header="z*α平均值" Width="*">
+                    <DataGridTemplateColumn Header="z*平均附加应力系数" Width="auto">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBlock Text="{Binding DFB_Average_Additional_Stress_Coefficient,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
@@ -54,7 +55,7 @@
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
 
-                    <DataGridTemplateColumn Header="z*α差值" Width="*">
+                    <DataGridTemplateColumn Header="z*α差值" Width="auto">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBlock Text="{Binding DFB_Average_Additional_Stress_Coefficient_1,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
@@ -64,9 +65,9 @@
                 </DataGrid.Columns>
             </DataGrid>
         </ScrollViewer>
-        <StackPanel Grid.Row="1" Orientation="Horizontal" >
-            <Button  Width="100" Height=" auto" Content="Ok" Margin="5" ></Button>
-            <Button  Width="100" Height=" auto" Content="Back" Margin="5" ></Button>
+        <StackPanel Height="auto" Grid.Row="1" Orientation="Horizontal" >
+            <Button HorizontalAlignment="Center" Width="100" Height=" auto" Content="Ok" Click="Button_Click" Margin="5" ></Button>
+            <!--<Button  Width="100" Height=" auto" Content="Back" Margin="5" ></Button>-->
         </StackPanel>
     </Grid>
 </Window>

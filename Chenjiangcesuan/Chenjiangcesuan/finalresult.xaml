@@ -5,14 +5,16 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Chenjiangcesuan"
         mc:Ignorable="d"
-        Title="最终计算结果" Height="768" Width="1160">
+        Title="计算结果(第二页)" Height="768" Width="1160">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition MinHeight="300"/>
             <RowDefinition MaxHeight="30" />
         </Grid.RowDefinitions>
         <ScrollViewer Grid.Row="0">
-            <DataGrid x:Name="Cal_Result">
+            <DataGrid CanUserResizeRows="False" CanUserAddRows="False" CanUserSortColumns="False" 
+                              CanUserReorderColumns="False" AllowDrop="False" FontSize="20" x:Name="Final_Result"
+                      AutoGenerateColumns="False">
                 <DataGrid.Columns>
                     <DataGridTemplateColumn Header="分层深度(m)" Width="auto">
                         <DataGridTemplateColumn.CellTemplate>
@@ -77,7 +79,7 @@
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
-                    <DataGridTemplateColumn Header="该土层压缩量(mm)" Width="*">
+                    <DataGridTemplateColumn Header="该土层压缩量(mm)" Width="auto">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBlock Text="{Binding DeformationofSoilLayer,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
