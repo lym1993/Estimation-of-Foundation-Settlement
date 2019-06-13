@@ -276,8 +276,8 @@ namespace Chenjiangcesuan
         private void data_processing2nd()
         {
             double m = FoundationLength / FoundationWidth;  // m=l/b确定之后一直是常量
-            double temp2 = get_selfstress();//基底处的自重应力
-            double temp1=get_aasb();//基底平均附加应力
+            double _selfstress = get_selfstress();//基底处的自重应力
+            double _additionalstress = get_aasb();//基底平均附加应力
 
             //移除基底以上土层 至此soilinformationsItems不再变动           
             for (int i=0;i<=get_baseindex(soilinformationsItems);i++)
@@ -349,14 +349,7 @@ namespace Chenjiangcesuan
             {
                 list_layerplus.Add(Convert.ToDouble(soilcalculateresult[i].Distancefrombase));
             }
-            /*List<double> list_layerdepth = list_layerplus;*///新建list 给后面layerdepth使用
-            //double temp4 = 0;
-            //for (int i = 0;i< list_layerdepth.Count;i++)
-            //{
-            //    temp4 += list_layerdepth[i];
-            //    list_layerplus[i] = temp4;
-            //}
-            
+                        
             //对动态集合final进行赋值           
             for (int i=0;i<soilinformationsItems.Count;i++)
             {
@@ -365,9 +358,9 @@ namespace Chenjiangcesuan
                     soilcalculatefinals[i].LayerDepth = "0" + "-" + soilinformationsItems[i].SoilThickness;
                     soilcalculatefinals[i].NaturalUnitWeight = Convert.ToDouble(soilinformationsItems[i].SoilUnitWeight);
                     soilcalculatefinals[i].Haswater = soilinformationsItems[i].Haswater;
-                    soilcalculatefinals[i].SelfWeightStressofSoilLayer = 
-                        temp2 + Convert.ToDouble(soilinformationsItems[i].SoilThickness) * (soilcalculatefinals[i].NaturalUnitWeight - soilcalculatefinals[i].Haswater) / 2;
-                    soilcalculatefinals[i].AdditionalStressMapArea = soilcalculateresult[i + 1].DFB_Average_Additional_Stress_Coefficient_1 * soilcalculatefinals[i].SelfWeightStressofSoilLayer;
+                    soilcalculatefinals[i].SelfWeightStressofSoilLayer =
+                        _selfstress + Convert.ToDouble(soilinformationsItems[i].SoilThickness) * (soilcalculatefinals[i].NaturalUnitWeight - soilcalculatefinals[i].Haswater) / 2;
+                    soilcalculatefinals[i].AdditionalStressMapArea = soilcalculateresult[i + 1].DFB_Average_Additional_Stress_Coefficient_1 * _additionalstress;
                     soilcalculatefinals[i].LayerThickness= Convert.ToDouble(soilinformationsItems[i].SoilThickness);//分层厚度
                     soilcalculatefinals[i].AdditionalStress = soilcalculatefinals[i].AdditionalStressMapArea / soilcalculatefinals[i].LayerThickness;
                     soilcalculatefinals[i].TotalStressofSoilLayer = soilcalculatefinals[i].SelfWeightStressofSoilLayer + soilcalculatefinals[i].AdditionalStress;
@@ -378,24 +371,22 @@ namespace Chenjiangcesuan
                     soilcalculatefinals[i].TotalDeformationofSoilLayer = soilcalculatefinals[i].DeformationofSoilLayer;
                 }
                 else//非第一层时
-                {
-                    soilcalculatefinals[i].Mark1 = list_layerplus[i];
-                    soilcalculatefinals[i].Mark2 = list_layerplus[i+1];
-                    soilcalculatefinals[i].LayerDepth = soilcalculatefinals[i].Mark1 + "-" + soilcalculatefinals[i].Mark2;
+                {                   
+                    soilcalculatefinals[i].LayerDepth = list_layerplus[i] + "-" + list_layerplus[i + 1];
                     soilcalculatefinals[i].NaturalUnitWeight = Convert.ToDouble(soilinformationsItems[i].SoilUnitWeight);
                     soilcalculatefinals[i].Haswater = soilinformationsItems[i].Haswater;
                     soilcalculatefinals[i].SelfWeightStressofSoilLayer= soilcalculatefinals[i-1].SelfWeightStressofSoilLayer
                         + Convert.ToDouble(soilinformationsItems[i-1].SoilThickness) * (soilcalculatefinals[i-1].NaturalUnitWeight - soilcalculatefinals[i-1].Haswater) / 2
                         + Convert.ToDouble(soilinformationsItems[i ].SoilThickness) * (soilcalculatefinals[i ].NaturalUnitWeight - soilcalculatefinals[i].Haswater) / 2;//第i层等于i-1层的平均应力+第i-1层的一半+第i层一半
-                    soilcalculatefinals[i].AdditionalStressMapArea = soilcalculateresult[i + 1].DFB_Average_Additional_Stress_Coefficient_1 * soilcalculatefinals[i].SelfWeightStressofSoilLayer;
+                    soilcalculatefinals[i].AdditionalStressMapArea = soilcalculateresult[i + 1].DFB_Average_Additional_Stress_Coefficient_1 * _additionalstress;
                     soilcalculatefinals[i].LayerThickness = Convert.ToDouble(soilinformationsItems[i].SoilThickness);//分层厚度
                     soilcalculatefinals[i].AdditionalStress = soilcalculatefinals[i].AdditionalStressMapArea / soilcalculatefinals[i].LayerThickness;
                     soilcalculatefinals[i].TotalStressofSoilLayer = soilcalculatefinals[i].SelfWeightStressofSoilLayer + soilcalculatefinals[i].AdditionalStress;
                     soilcalculatefinals[i].E1i = get_voidratio(i, soilcalculatefinals[i].SelfWeightStressofSoilLayer);
-                    soilcalculatefinals[i].E2i = get_voidratio(i, soilcalculatefinals[i].TotalDeformationofSoilLayer);
+                    soilcalculatefinals[i].E2i = get_voidratio(i, soilcalculatefinals[i].TotalStressofSoilLayer);
                     soilcalculatefinals[i].Esi = (1 + soilcalculatefinals[i].E1i) / (soilcalculatefinals[i].E1i - soilcalculatefinals[i].E2i);
                     soilcalculatefinals[i].DeformationofSoilLayer = soilcalculatefinals[i].AdditionalStressMapArea / soilcalculatefinals[i].Esi;
-                    soilcalculatefinals[i].TotalDeformationofSoilLayer += soilcalculatefinals[i].DeformationofSoilLayer;
+                    soilcalculatefinals[i].TotalDeformationofSoilLayer = soilcalculatefinals[i].DeformationofSoilLayer+ soilcalculatefinals[i-1].TotalDeformationofSoilLayer;
                 }
                 //soilcalculatefinals.Add(soilcalculatefinals[i]);
             }
@@ -413,26 +404,31 @@ namespace Chenjiangcesuan
 
         //求孔隙比e1i与e2i
         private double get_voidratio(int i,double a)
-        {
-            double b = a / 1000;
-            double temp = 0;
-            if( b>=0&&b< 0.1)
+        {            
+            //采用线性插值
+            //后期可考虑更高级别插值方法
+            double y = 0;
+            if( a>=0&&a< 50)
             {
-                temp = Convert.ToDouble(soilinformationsItems[i].Voidratio0kPa) + (Convert.ToDouble(soilinformationsItems[i].Voidratio100kPa) - Convert.ToDouble(soilinformationsItems[i].Voidratio0kPa)) / 100 * a;
+                y =(Convert.ToDouble(soilinformationsItems[i].Voidratio50kPa)- Convert.ToDouble(soilinformationsItems[i].Voidratio0kPa))/50 + Convert.ToDouble(soilinformationsItems[i].Voidratio0kPa);
             }
-            else if(b>= 0.1&& b < 0.2)
+            else if(a>= 50&& a < 100)
             {
-                temp = Convert.ToDouble(soilinformationsItems[i].Voidratio100kPa) + (Convert.ToDouble(soilinformationsItems[i].Voidratio200kPa) - Convert.ToDouble(soilinformationsItems[i].Voidratio100kPa)) / 100 * (a-100);
+                y = (Convert.ToDouble(soilinformationsItems[i].Voidratio100kPa) - Convert.ToDouble(soilinformationsItems[i].Voidratio50kPa)) / 50 + Convert.ToDouble(soilinformationsItems[i].Voidratio50kPa);
             }
-            else if (b >= 0.2&& b <0.3)
+            else if (a >= 100&& a <200)
             {
-                temp = Convert.ToDouble(soilinformationsItems[i].Voidratio200kPa) + (Convert.ToDouble(soilinformationsItems[i].Voidratio300kPa) - Convert.ToDouble(soilinformationsItems[i].Voidratio200kPa)) / 100 *(a-200);
+                y = (Convert.ToDouble(soilinformationsItems[i].Voidratio200kPa) - Convert.ToDouble(soilinformationsItems[i].Voidratio100kPa)) / 100 + Convert.ToDouble(soilinformationsItems[i].Voidratio100kPa);
             }
-            else if (b >= 0.3 && b <= 0.4)
+            else if (a >= 200 && a < 300)
             {
-                temp = Convert.ToDouble(soilinformationsItems[i].Voidratio300kPa) + (Convert.ToDouble(soilinformationsItems[i].Voidratio400kPa) - Convert.ToDouble(soilinformationsItems[i].Voidratio300kPa)) / 100 * (a-300);
+                y = (Convert.ToDouble(soilinformationsItems[i].Voidratio300kPa) - Convert.ToDouble(soilinformationsItems[i].Voidratio200kPa)) / 100 + Convert.ToDouble(soilinformationsItems[i].Voidratio200kPa);
             }
-            return temp;
+            else if (a >= 300 && a <= 400)
+            {
+                y = (Convert.ToDouble(soilinformationsItems[i].Voidratio400kPa) - Convert.ToDouble(soilinformationsItems[i].Voidratio300kPa)) / 100 + Convert.ToDouble(soilinformationsItems[i].Voidratio300kPa);
+            }
+            return y;
         }
 
         //基底处土的自重应力

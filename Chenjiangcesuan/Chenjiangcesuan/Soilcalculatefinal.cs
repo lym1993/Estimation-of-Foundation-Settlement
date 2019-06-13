@@ -119,19 +119,6 @@ namespace Chenjiangcesuan
             set { _totaldeformationofsoillayer = value; NotifyPropertyChanged("TotalDeformationofSoilLayer"); }
         }
         private double _totaldeformationofsoillayer;
-
-        public double Mark1
-        {
-            get { return _mark1; }
-            set { _mark1 = value; NotifyPropertyChanged("Mark1"); }
-        }
-        private double _mark1;
-
-        public double Mark2
-        {
-            get { return _mark2; }
-            set { _mark2 = value; NotifyPropertyChanged("Mark2"); }
-        }
-        private double _mark2;
+        
     }
 }

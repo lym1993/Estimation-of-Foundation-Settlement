@@ -16,77 +16,77 @@
                               CanUserReorderColumns="False" AllowDrop="False" FontSize="20" x:Name="Final_Result"
                       AutoGenerateColumns="False">
                 <DataGrid.Columns>
-                    <DataGridTemplateColumn Header="分层深度(m)" Width="*">
+                    <DataGridTemplateColumn Header="分层深度(m)" Width="auto">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBlock Text="{Binding LayerDepth,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
-                    <DataGridTemplateColumn Header="自重应力(kPa)" Width="*">
+                    <DataGridTemplateColumn Header="自重应力(kPa)" Width="auto">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBlock Text="{Binding SelfWeightStressofSoilLayer,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
-                    <DataGridTemplateColumn Header="附加应力图面积(kPa*m)" Width="*">
+                    <DataGridTemplateColumn Header="附加应力图面积(kPa*m)" Width="auto">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBlock Text="{Binding AdditionalStressMapArea,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
-                    <DataGridTemplateColumn Header="分层厚度(m)" Width="*">
+                    <DataGridTemplateColumn Header="分层厚度(m)" Width="auto">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBlock Text="{Binding LayerThickness,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
-                    <DataGridTemplateColumn Header="附加应力(kPa)" Width="*">
+                    <DataGridTemplateColumn Header="附加应力(kPa)" Width="auto">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBlock Text="{Binding AdditionalStress,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
-                    <DataGridTemplateColumn Header="该层总应力(kPa)" Width="*">
+                    <DataGridTemplateColumn Header="该层总应力(kPa)" Width="auto">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBlock Text="{Binding TotalStressofSoilLayer,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
-                    <DataGridTemplateColumn Header="受压前孔隙比e1i" Width="*">
+                    <DataGridTemplateColumn Header="受压前孔隙比e1i" Width="auto">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBlock Text="{Binding E1i,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
-                    <DataGridTemplateColumn Header="受压后孔隙比e2i" Width="*">
+                    <DataGridTemplateColumn Header="受压后孔隙比e2i" Width="auto">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBlock Text="{Binding E2i,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
-                    <DataGridTemplateColumn Header="压缩模量Esi" Width="*">
+                    <DataGridTemplateColumn Header="压缩模量Esi" Width="auto">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBlock Text="{Binding Esi,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
-                    <DataGridTemplateColumn Header="该土层压缩量(mm)" Width="*">
+                    <DataGridTemplateColumn Header="该土层压缩量(mm)" Width="auto">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBlock Text="{Binding DeformationofSoilLayer,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
-                    <DataGridTemplateColumn Header="土层压缩总量(mm)" Width="*">
+                    <DataGridTemplateColumn Header="土层压缩总量(mm)" Width="auto">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBlock Text="{Binding TotalDeformationofSoilLayer,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
