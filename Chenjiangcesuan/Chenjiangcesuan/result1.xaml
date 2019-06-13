@@ -5,17 +5,17 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Chenjiangcesuan"
         mc:Ignorable="d"
-        Title="计算结果（第一页）" Height="450" Width="800">
+        Title="计算结果（第一页）" Height="auto" Width="auto">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="35"/>
         </Grid.RowDefinitions>
         <ScrollViewer Grid.Row="0">
-            <DataGrid FontSize="20" CanUserResizeRows="False" CanUserAddRows="False" CanUserSortColumns="False" 
-                              CanUserReorderColumns="False" AllowDrop="False" x:Name="Cal_Result">
+            <DataGrid  x:Name="Cal_Result" CanUserResizeRows="False" CanUserAddRows="False" CanUserSortColumns="False" 
+                              CanUserReorderColumns="False" AllowDrop="False" FontSize="20"  AutoGenerateColumns="False">
                 <DataGrid.Columns>
-                    <DataGridTemplateColumn Header="z(距离基底深度)/m"  Width="auto">
+                    <DataGridTemplateColumn Header="z(距离基底深度)/m "  Width="auto">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBlock Text="{Binding Distancefrombase,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
@@ -23,7 +23,7 @@
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
 
-                    <DataGridTemplateColumn Header="l/b" Width="auto">
+                    <DataGridTemplateColumn Header="l/b" Width="*">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBlock Text="{Binding Length_Width,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
@@ -31,7 +31,7 @@
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
 
-                    <DataGridTemplateColumn Header="z/b" Width="auto">
+                    <DataGridTemplateColumn Header="z/b" Width="*">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBlock Text="{Binding DFB_Width,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
@@ -39,7 +39,7 @@
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
 
-                    <DataGridTemplateColumn Header="平均附加应力系数" Width="auto">
+                    <DataGridTemplateColumn Header="4*平均附加应力系数" Width="*">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBlock Text="{Binding Average_Additional_Stress_Coefficient,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
@@ -47,7 +47,7 @@
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
 
-                    <DataGridTemplateColumn Header="z*平均附加应力系数" Width="auto">
+                    <DataGridTemplateColumn Header="4z*平均附加应力系数" Width="*">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBlock Text="{Binding DFB_Average_Additional_Stress_Coefficient,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
@@ -55,7 +55,7 @@
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
 
-                    <DataGridTemplateColumn Header="z*α差值" Width="auto">
+                    <DataGridTemplateColumn Header="z*α差值" Width="*">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBlock Text="{Binding DFB_Average_Additional_Stress_Coefficient_1,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>

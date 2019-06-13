@@ -23,5 +23,11 @@ namespace Chenjiangcesuan
         {
             InitializeComponent();
         }
+
+        private void Ok_btn_Click(object sender, RoutedEventArgs e)
+        {
+            DialogResult = true;
+            this.Close();
+        }
     }
 }

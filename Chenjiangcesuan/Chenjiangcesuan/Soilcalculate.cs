@@ -59,7 +59,7 @@ namespace Chenjiangcesuan
         //z*平均α-z-1平均α-1
         public double DFB_Average_Additional_Stress_Coefficient_1
         {
-            get { return _dfb_average_additional_stress_coefficient; }
+            get { return _dfb_average_additional_stress_coefficient_1; }
             set { _dfb_average_additional_stress_coefficient_1 = value; NotifyPropertyChanged("DFB_Average_Additional_Stress_Coefficient_1"); }
         }
         private double _dfb_average_additional_stress_coefficient_1;      

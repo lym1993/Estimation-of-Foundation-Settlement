@@ -72,11 +72,11 @@ namespace Chenjiangcesuan
             depth.Text = Convert.ToString(3);
             undergroudwater.Text = Convert.ToString(1);
 
-            //导入例题数据
-            AddRow();
-            AddRow1();
+            //导入例题数据                  
             AddRow2();
             AddRow3();
+            AddRow4();
+            AddRow5();
 
             GetComboBoxSource();
             datagrid1.ItemsSource = soilinformationsItems;
@@ -95,7 +95,23 @@ namespace Chenjiangcesuan
         }
 
         //添加行方法
-        private void AddRow()
+        private void AddRow1()
+        {
+            Soilinformation soilinformation = new Soilinformation();
+
+            soilinformation.SoilThickness = "";
+            soilinformation.SoilUnitWeight = "";
+            soilinformation.Haswater = 0;//默认均不含地下水影响
+            soilinformation.Voidratio0kPa = "";
+            soilinformation.Voidratio50kPa = "";
+            soilinformation.Voidratio100kPa = "";
+            soilinformation.Voidratio200kPa = "";
+            soilinformation.Voidratio300kPa = "";
+            soilinformation.Voidratio400kPa = "";
+            
+            soilinformationsItems.Add(soilinformation);
+        }
+        private void AddRow2()
         {
             Soilinformation soilinformation = new Soilinformation();
 
@@ -108,10 +124,10 @@ namespace Chenjiangcesuan
             soilinformation.Voidratio200kPa = "0.74";
             soilinformation.Voidratio300kPa = "0.72";
             soilinformation.Voidratio400kPa = "0.7";
-            
+
             soilinformationsItems.Add(soilinformation);
         }
-        private void AddRow1()
+        private void AddRow3()
         {
             Soilinformation soilinformation = new Soilinformation();
 
@@ -127,7 +143,7 @@ namespace Chenjiangcesuan
 
             soilinformationsItems.Add(soilinformation);
         }
-        private void AddRow2()
+        private void AddRow4()
         {
             Soilinformation soilinformation = new Soilinformation();
 
@@ -143,7 +159,7 @@ namespace Chenjiangcesuan
 
             soilinformationsItems.Add(soilinformation);
         }
-        private void AddRow3()
+        private void AddRow5()
         {
             Soilinformation soilinformation = new Soilinformation();
 
@@ -159,6 +175,7 @@ namespace Chenjiangcesuan
 
             soilinformationsItems.Add(soilinformation);
         }
+        
         //计算按钮事件
         private void CalculateBtn_Click(object sender, RoutedEventArgs e)
         {          
@@ -262,8 +279,7 @@ namespace Chenjiangcesuan
             double temp2 = get_selfstress();//基底处的自重应力
             double temp1=get_aasb();//基底平均附加应力
 
-            //移除基底以上土层 至此soilinformationsItems不再变动 
-            //有问题！！！！！！！！！！！！！！
+            //移除基底以上土层 至此soilinformationsItems不再变动           
             for (int i=0;i<=get_baseindex(soilinformationsItems);i++)
             {
                 soilinformationsItems.RemoveAt(0);    //每次移除第一个元素    
@@ -302,16 +318,15 @@ namespace Chenjiangcesuan
                 }
                 else
                 {
-                    soilcalculateresult[i].Distancefrombase = list_distancefrombase[i-1];
+                    soilcalculateresult[i].Distancefrombase = list_distancefrombase[i - 1];
                     soilcalculateresult[i].Length_Width = m;
-                    soilcalculateresult[i].DFB_Width = soilcalculateresult[i].Distancefrombase/(FoundationWidth/2);
+                    soilcalculateresult[i].DFB_Width = soilcalculateresult[i].Distancefrombase / (FoundationWidth / 2);
                     soilcalculateresult[i].Average_Additional_Stress_Coefficient = 4 * get_acas(m, soilcalculateresult[i].DFB_Width);
-                    soilcalculateresult[i].DFB_Average_Additional_Stress_Coefficient = 
-                        soilcalculateresult[i].Distancefrombase* soilcalculateresult[i].Average_Additional_Stress_Coefficient;
+                    soilcalculateresult[i].DFB_Average_Additional_Stress_Coefficient =
+                        soilcalculateresult[i].Distancefrombase * soilcalculateresult[i].Average_Additional_Stress_Coefficient;
                     soilcalculateresult[i].DFB_Average_Additional_Stress_Coefficient_1 = 
-                        soilcalculateresult[i].DFB_Average_Additional_Stress_Coefficient- soilcalculateresult[i-1].DFB_Average_Additional_Stress_Coefficient;                    
+                        soilcalculateresult[i].DFB_Average_Additional_Stress_Coefficient - soilcalculateresult[i - 1].DFB_Average_Additional_Stress_Coefficient_1;
                 }
-                //soilcalculateresult.Add(soilcalculateresult[i]);
             }
 
             //弹出子对话框 显示soilcalculateresult的信息，用户点击ok后进入最终运算。
@@ -323,25 +338,25 @@ namespace Chenjiangcesuan
           
             //点击ok后
             //初始化final集合
-            for (int i = 0; i <= soilinformationsItems.Count; i ++)
+            for (int i = 0; i < soilinformationsItems.Count; i ++)
             {
                 Addfinal();
             }
 
             //Layerdepth列表的方法
-            List<double> list_layerdepth = new List<double>();
+            List<double> list_layerplus = new List<double>();
             for(int i=0;i<soilcalculateresult.Count;i++)
             {
-                list_layerdepth.Add(Convert.ToDouble(soilcalculateresult[i].Distancefrombase));
+                list_layerplus.Add(Convert.ToDouble(soilcalculateresult[i].Distancefrombase));
             }
-            double temp4 = 0;
-            for (int i = 0;i< list_layerdepth.Count;i++)
-            {
-                temp4 += list_layerdepth[i];
-                list_layerdepth[i] = temp3;
-            }
+            /*List<double> list_layerdepth = list_layerplus;*///新建list 给后面layerdepth使用
+            //double temp4 = 0;
+            //for (int i = 0;i< list_layerdepth.Count;i++)
+            //{
+            //    temp4 += list_layerdepth[i];
+            //    list_layerplus[i] = temp4;
+            //}
             
-
             //对动态集合final进行赋值           
             for (int i=0;i<soilinformationsItems.Count;i++)
             {
@@ -362,10 +377,10 @@ namespace Chenjiangcesuan
                     soilcalculatefinals[i].DeformationofSoilLayer = soilcalculatefinals[i].AdditionalStressMapArea / soilcalculatefinals[i].Esi;
                     soilcalculatefinals[i].TotalDeformationofSoilLayer = soilcalculatefinals[i].DeformationofSoilLayer;
                 }
-                else//非第一层时6
+                else//非第一层时
                 {
-                    soilcalculatefinals[i].Mark1 = list_layerdepth[i];
-                    soilcalculatefinals[i].Mark2 = list_layerdepth[i+1];
+                    soilcalculatefinals[i].Mark1 = list_layerplus[i];
+                    soilcalculatefinals[i].Mark2 = list_layerplus[i+1];
                     soilcalculatefinals[i].LayerDepth = soilcalculatefinals[i].Mark1 + "-" + soilcalculatefinals[i].Mark2;
                     soilcalculatefinals[i].NaturalUnitWeight = Convert.ToDouble(soilinformationsItems[i].SoilUnitWeight);
                     soilcalculatefinals[i].Haswater = soilinformationsItems[i].Haswater;
@@ -434,7 +449,7 @@ namespace Chenjiangcesuan
         //添加土层按钮
         private void btnAdd_Click(object sender, RoutedEventArgs e)
         {
-            AddRow();
+            AddRow1();
         }
 
         //删除土层按钮
@@ -487,14 +502,12 @@ namespace Chenjiangcesuan
             soilinformationsItems.Clear();
             soilcalculateresult.Clear();
             soilcalculatefinals.Clear();
-
+            AddRow1();
             load.Text = "";
             depth.Text = "";
             undergroudwater.Text = "";
             foundation_width.Text = "";
             foundation_length.Text = "";          
-            AddRow();
-            
         }
 
         //基底处平均附加应力 Average Additional Stress of Base
