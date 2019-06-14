@@ -366,7 +366,7 @@ namespace Chenjiangcesuan
                     soilcalculatefinals[i].TotalStressofSoilLayer = soilcalculatefinals[i].SelfWeightStressofSoilLayer + soilcalculatefinals[i].AdditionalStress;
                     soilcalculatefinals[i].E1i = get_voidratio(i,soilcalculatefinals[i].SelfWeightStressofSoilLayer);
                     soilcalculatefinals[i].E2i = get_voidratio(i,soilcalculatefinals[i].TotalStressofSoilLayer);
-                    soilcalculatefinals[i].Esi = (1 + soilcalculatefinals[i].E1i) / (soilcalculatefinals[i].E1i - soilcalculatefinals[i].E2i);
+                    soilcalculatefinals[i].Esi = (1 + soilcalculatefinals[i].E1i) / (soilcalculatefinals[i].E1i - soilcalculatefinals[i].E2i) * soilcalculatefinals[i].AdditionalStress / 1000;
                     soilcalculatefinals[i].DeformationofSoilLayer = soilcalculatefinals[i].AdditionalStressMapArea / soilcalculatefinals[i].Esi;
                     soilcalculatefinals[i].TotalDeformationofSoilLayer = soilcalculatefinals[i].DeformationofSoilLayer;
                 }
@@ -384,7 +384,7 @@ namespace Chenjiangcesuan
                     soilcalculatefinals[i].TotalStressofSoilLayer = soilcalculatefinals[i].SelfWeightStressofSoilLayer + soilcalculatefinals[i].AdditionalStress;
                     soilcalculatefinals[i].E1i = get_voidratio(i, soilcalculatefinals[i].SelfWeightStressofSoilLayer);
                     soilcalculatefinals[i].E2i = get_voidratio(i, soilcalculatefinals[i].TotalStressofSoilLayer);
-                    soilcalculatefinals[i].Esi = (1 + soilcalculatefinals[i].E1i) / (soilcalculatefinals[i].E1i - soilcalculatefinals[i].E2i);
+                    soilcalculatefinals[i].Esi = (1 + soilcalculatefinals[i].E1i) / (soilcalculatefinals[i].E1i - soilcalculatefinals[i].E2i)* soilcalculatefinals[i].AdditionalStress/1000;
                     soilcalculatefinals[i].DeformationofSoilLayer = soilcalculatefinals[i].AdditionalStressMapArea / soilcalculatefinals[i].Esi;
                     soilcalculatefinals[i].TotalDeformationofSoilLayer = soilcalculatefinals[i].DeformationofSoilLayer+ soilcalculatefinals[i-1].TotalDeformationofSoilLayer;
                 }
@@ -410,23 +410,23 @@ namespace Chenjiangcesuan
             double y = 0;
             if( a>=0&&a< 50)
             {
-                y =(Convert.ToDouble(soilinformationsItems[i].Voidratio50kPa)- Convert.ToDouble(soilinformationsItems[i].Voidratio0kPa))/50 + Convert.ToDouble(soilinformationsItems[i].Voidratio0kPa);
+                y =(Convert.ToDouble(soilinformationsItems[i].Voidratio50kPa)- Convert.ToDouble(soilinformationsItems[i].Voidratio0kPa))*a/50 + Convert.ToDouble(soilinformationsItems[i].Voidratio0kPa);
             }
             else if(a>= 50&& a < 100)
             {
-                y = (Convert.ToDouble(soilinformationsItems[i].Voidratio100kPa) - Convert.ToDouble(soilinformationsItems[i].Voidratio50kPa)) / 50 + Convert.ToDouble(soilinformationsItems[i].Voidratio50kPa);
+                y = (Convert.ToDouble(soilinformationsItems[i].Voidratio100kPa) - Convert.ToDouble(soilinformationsItems[i].Voidratio50kPa))*(a-50) / 50 + Convert.ToDouble(soilinformationsItems[i].Voidratio50kPa);
             }
             else if (a >= 100&& a <200)
             {
-                y = (Convert.ToDouble(soilinformationsItems[i].Voidratio200kPa) - Convert.ToDouble(soilinformationsItems[i].Voidratio100kPa)) / 100 + Convert.ToDouble(soilinformationsItems[i].Voidratio100kPa);
+                y = (Convert.ToDouble(soilinformationsItems[i].Voidratio200kPa) - Convert.ToDouble(soilinformationsItems[i].Voidratio100kPa))*(a-100) / 100 + Convert.ToDouble(soilinformationsItems[i].Voidratio100kPa);
             }
             else if (a >= 200 && a < 300)
             {
-                y = (Convert.ToDouble(soilinformationsItems[i].Voidratio300kPa) - Convert.ToDouble(soilinformationsItems[i].Voidratio200kPa)) / 100 + Convert.ToDouble(soilinformationsItems[i].Voidratio200kPa);
+                y = (Convert.ToDouble(soilinformationsItems[i].Voidratio300kPa) - Convert.ToDouble(soilinformationsItems[i].Voidratio200kPa))*(a-200) / 100 + Convert.ToDouble(soilinformationsItems[i].Voidratio200kPa);
             }
             else if (a >= 300 && a <= 400)
             {
-                y = (Convert.ToDouble(soilinformationsItems[i].Voidratio400kPa) - Convert.ToDouble(soilinformationsItems[i].Voidratio300kPa)) / 100 + Convert.ToDouble(soilinformationsItems[i].Voidratio300kPa);
+                y = (Convert.ToDouble(soilinformationsItems[i].Voidratio400kPa) - Convert.ToDouble(soilinformationsItems[i].Voidratio300kPa))*(a-300) / 100 + Convert.ToDouble(soilinformationsItems[i].Voidratio300kPa);
             }
             return y;
         }
