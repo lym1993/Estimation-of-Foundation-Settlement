@@ -16,7 +16,7 @@
                               CanUserReorderColumns="False" AllowDrop="False" FontSize="20" x:Name="Final_Result"
                       AutoGenerateColumns="False">
                 <DataGrid.Columns>
-                    <DataGridTemplateColumn Header="基底处起分层深度(m)" Width="auto">
+                    <DataGridTemplateColumn Header="距基底的分层深度(m)" Width="auto">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBlock Text="{Binding LayerDepth,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
