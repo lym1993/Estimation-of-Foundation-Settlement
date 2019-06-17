@@ -9,14 +9,14 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition MinHeight="300"/>
-            <RowDefinition MaxHeight="30" />
+            <RowDefinition MaxHeight="60" />
         </Grid.RowDefinitions>
         <ScrollViewer Grid.Row="0">
             <DataGrid CanUserResizeRows="False" CanUserAddRows="False" CanUserSortColumns="False" 
                               CanUserReorderColumns="False" AllowDrop="False" FontSize="20" x:Name="Final_Result"
                       AutoGenerateColumns="False">
                 <DataGrid.Columns>
-                    <DataGridTemplateColumn Header="分层深度(m)" Width="auto">
+                    <DataGridTemplateColumn Header="基底处起分层深度(m)" Width="auto">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBlock Text="{Binding LayerDepth,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
@@ -82,14 +82,14 @@
                     <DataGridTemplateColumn Header="该土层压缩量(mm)" Width="auto">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock Text="{Binding DeformationofSoilLayer,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                                <TextBlock Background="CornflowerBlue" Text="{Binding DeformationofSoilLayer,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
                     <DataGridTemplateColumn Header="土层压缩总量(mm)" Width="auto">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock Text="{Binding TotalDeformationofSoilLayer,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                                <TextBlock Background="AliceBlue" Text="{Binding TotalDeformationofSoilLayer,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
@@ -97,8 +97,8 @@
             </DataGrid>
         </ScrollViewer>
         <StackPanel Grid.Row="1" Orientation="Horizontal" >
-            <Button x:Name="ok_btn"  Width="100" Height=" auto" Content="Ok" Margin="5" Click="Ok_btn_Click" ></Button>
-            <Button  Width="100" Height=" auto" Content="Back" Margin="5" ></Button>
+            <Button BorderThickness="1" x:Name="ok_btn"  Width="100" Height="30" Content="Ok" Margin="5" Click="Ok_btn_Click" ></Button>
+            <!--<Button  Width="100" Height=" auto" Content="Back" Margin="5" />-->
         </StackPanel>
         
     </Grid>

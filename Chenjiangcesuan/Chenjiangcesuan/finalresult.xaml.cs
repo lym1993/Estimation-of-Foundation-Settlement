@@ -26,7 +26,7 @@ namespace Chenjiangcesuan
 
         private void Ok_btn_Click(object sender, RoutedEventArgs e)
         {
-            DialogResult = true;
+            DialogResult = true;                   
             this.Close();
         }
     }
