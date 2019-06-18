@@ -12,7 +12,7 @@
             <RowDefinition Height="35"/>
         </Grid.RowDefinitions>
         <ScrollViewer Grid.Row="0">
-            <DataGrid  x:Name="Cal_Result" CanUserResizeRows="False" CanUserAddRows="False" CanUserSortColumns="False" 
+            <DataGrid  x:Name="Cal_Result" LoadingRow="Cal_Result_LoadingRow" CanUserResizeRows="False" CanUserAddRows="False" CanUserSortColumns="False" 
                               CanUserReorderColumns="False" AllowDrop="False" FontSize="20"  AutoGenerateColumns="False">
                 <DataGrid.Columns>
                     <DataGridTemplateColumn Header="z(距离基底深度)/m "  Width="auto">

@@ -12,7 +12,7 @@
             <RowDefinition MaxHeight="60" />
         </Grid.RowDefinitions>
         <ScrollViewer Grid.Row="0">
-            <DataGrid CanUserResizeRows="False" CanUserAddRows="False" CanUserSortColumns="False" 
+            <DataGrid  LoadingRow="Final_datagrid_LoadingRow" CanUserResizeRows="False" CanUserAddRows="False" CanUserSortColumns="False" 
                               CanUserReorderColumns="False" AllowDrop="False" FontSize="20" x:Name="Final_Result"
                       AutoGenerateColumns="False">
                 <DataGrid.Columns>

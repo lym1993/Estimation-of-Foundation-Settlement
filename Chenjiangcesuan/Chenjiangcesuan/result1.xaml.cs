@@ -29,5 +29,11 @@ namespace Chenjiangcesuan
             DialogResult = true;
             this.Close();            
         }
+
+        //添加行号
+        private void Cal_Result_LoadingRow(object sender, DataGridRowEventArgs e)
+        {
+            e.Row.Header = e.Row.GetIndex() + 1;
+        }
     }
 }

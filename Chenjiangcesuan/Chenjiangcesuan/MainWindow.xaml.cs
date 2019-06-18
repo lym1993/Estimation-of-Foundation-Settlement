@@ -264,7 +264,7 @@ namespace Chenjiangcesuan
                 }
             }
 
-            if (UndergroudWater<0)//土层完全不含水,不用再考虑含水层条件
+            if (UndergroudWater<0||checkbox_undergroundwater.IsChecked==false)//土层完全不含水,不用再考虑含水层条件
             {
                 //土壤的haswater全是0
                 for(int i=0;i<soilinformationsItems.Count;i++)
@@ -728,6 +728,22 @@ namespace Chenjiangcesuan
             }
             return a;
         }
-      
+
+        //checkbox选中 含水情况
+        private void Checkbox_undergroundwater_Checked(object sender, RoutedEventArgs e)
+        {
+            undergroudwater.IsEnabled = true;
+            textblock_undergroundwater.Foreground = Brushes.Black;
+            textblock_undergroundwater.Text = "地下水位线(M)";
+        }
+
+        //checkbox未选中 土层均不含水
+        private void Checkbox_undergroundwater_Unchecked(object sender, RoutedEventArgs e)
+        {
+            undergroudwater.IsEnabled = false;
+            undergroudwater.Text = "0";
+            textblock_undergroundwater.Foreground =Brushes.Red ;
+            textblock_undergroundwater.Text = "无地下水情况";
+        }
     }
 }

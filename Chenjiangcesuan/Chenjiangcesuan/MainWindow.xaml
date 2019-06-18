@@ -36,20 +36,23 @@
                         <RowDefinition></RowDefinition>
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="auto"></ColumnDefinition>
+                        <ColumnDefinition Width="159.2"></ColumnDefinition>
                         <ColumnDefinition />
                     </Grid.ColumnDefinitions>
                     <TextBlock Grid.Row="0" FontSize="20"  Width="auto" 
-                               HorizontalAlignment="Left" VerticalAlignment="Center" Text="上部荷载(Kpa)" Margin="5"></TextBlock>
+                               HorizontalAlignment="Left" VerticalAlignment="Center" Text="上部荷载(Kpa)" Margin="5" ></TextBlock>
                     <TextBox x:Name="load"  FontSize="20" HorizontalAlignment="Center" 
-                             VerticalAlignment="Center" Grid.Row="0" Grid.Column="1" Width="100" Margin="5"  ></TextBox>
+                             VerticalAlignment="Center" Grid.Row="0" Grid.Column="1" Width="100" Margin="5" ToolTip="请输入荷载" ></TextBox>
                     <TextBlock Grid.Row="1" FontSize="20"  Width="auto" 
                                HorizontalAlignment="Left" VerticalAlignment="Center" Text="基础埋深(M)" Margin="5"></TextBlock>
                     <TextBox x:Name="depth" FontSize="20" HorizontalAlignment="Center" 
-                             VerticalAlignment="Center" Grid.Row="1" Grid.Column="1" Width="100" Margin="5" ></TextBox>
-                    <TextBlock  Grid.Row="2" FontSize="20"  Width="auto" 
-                               HorizontalAlignment="Left" VerticalAlignment="Center" Text="地下水位线(M)" Margin="5"></TextBlock>
-                    <TextBox x:Name="undergroudwater" FontSize="20" HorizontalAlignment="Center" 
+                             VerticalAlignment="Center" Grid.Row="1" Grid.Column="1" Width="100" Margin="5" ToolTip="基础埋深必须大于或等于0"></TextBox>
+                    <StackPanel Orientation="Horizontal" Grid.Row="2">
+                        <CheckBox x:Name="checkbox_undergroundwater" IsChecked="False" Unchecked="Checkbox_undergroundwater_Unchecked" Checked="Checkbox_undergroundwater_Checked" Grid.Row="2" VerticalAlignment="Center" ToolTip="含有地下水时请点击此框" />
+                        <TextBlock x:Name="textblock_undergroundwater" Grid.Row="2" FontSize="20"  Width="auto" 
+                               HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="Red" Text="无地下水情况" Margin="5"></TextBlock>
+                    </StackPanel>
+                    <TextBox x:Name="undergroudwater" IsEnabled="False" FontSize="20" HorizontalAlignment="Center" ToolTip="地下水位必须大于或等于0"
                              VerticalAlignment="Center" Grid.Row="2" Grid.Column="1" Width="100" Margin="5" ></TextBox>
                 </Grid>
             </GroupBox>
@@ -65,9 +68,9 @@
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
                     <TextBlock Grid.Row="0" FontSize="20"  Width="auto" HorizontalAlignment="Left" VerticalAlignment="Center" Text="横向宽度b(M)" Margin="5"></TextBlock>
-                    <TextBox x:Name="foundation_width" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="0" Grid.Column="1" Width="100" Margin="5" ></TextBox>
+                    <TextBox x:Name="foundation_width" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="0" Grid.Column="1" Width="100" Margin="5" ToolTip="基础短边"></TextBox>
                     <TextBlock Grid.Row="1" FontSize="20"  Width="auto" HorizontalAlignment="Left" VerticalAlignment="Center" Text="竖向宽度l(M)" Margin="5"></TextBlock>
-                    <TextBox x:Name="foundation_length" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" Grid.Column="1" Width="100" Margin="5" ></TextBox>
+                    <TextBox x:Name="foundation_length" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" Grid.Column="1" Width="100" Margin="5" ToolTip="基础长边"></TextBox>
 
                 </Grid>
             </GroupBox>

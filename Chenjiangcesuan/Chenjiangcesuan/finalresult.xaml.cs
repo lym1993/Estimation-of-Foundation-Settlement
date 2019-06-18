@@ -29,5 +29,10 @@ namespace Chenjiangcesuan
             DialogResult = true;                   
             this.Close();
         }
+
+        private void Final_datagrid_LoadingRow(object sender, DataGridRowEventArgs e)
+        {
+            e.Row.Header = e.Row.GetIndex() + 1;
+        }
     }
 }
