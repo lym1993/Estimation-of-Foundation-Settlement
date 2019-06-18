@@ -206,10 +206,7 @@ namespace Chenjiangcesuan
             soilinformationsItems.Add(d);
             soilinformationsItems.Add(a);
             soilinformationsItems.Add(b);
-            for(int i=0;i<36;i++)
-            {
-                soilinformationsItems.Add(a);
-            }
+            
         }
         
         //计算按钮事件

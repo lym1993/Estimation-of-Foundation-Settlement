@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Chenjiangcesuan"
         mc:Ignorable="d"
-        Title="计算结果(第二页)" Height="auto" Width="auto">
+        Title="计算结果(第二页)" Height="1080" Width="1920">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition MinHeight="300"/>
@@ -89,7 +89,7 @@
                     <DataGridTemplateColumn Header="土层压缩总量(mm)" Width="auto">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock Background="AliceBlue" Text="{Binding TotalDeformationofSoilLayer,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                                <TextBlock Background="OrangeRed" Text="{Binding TotalDeformationofSoilLayer,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
