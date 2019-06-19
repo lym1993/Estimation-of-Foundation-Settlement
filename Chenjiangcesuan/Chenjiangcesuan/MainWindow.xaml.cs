@@ -164,43 +164,6 @@ namespace Chenjiangcesuan
                 Voidratio300kPa = "0.71",
                 Voidratio400kPa = "0.708"
             };
-
-            //Soilinformation e = new Soilinformation
-            //{
-            //    SoilThickness = "5",
-            //    SoilUnitWeight = "18",
-            //    Haswater = 0,
-            //    Voidratio0kPa = "0.9",
-            //    Voidratio50kPa = "0.86",
-            //    Voidratio100kPa = "0.82",
-            //    Voidratio200kPa = "0.78",
-            //    Voidratio300kPa = "0.74",
-            //    Voidratio400kPa = "0.7"
-            //};
-            //Soilinformation f = new Soilinformation
-            //{
-            //    SoilThickness = "4",
-            //    SoilUnitWeight = "18",
-            //    Haswater = 0,
-            //    Voidratio0kPa = "1.2",
-            //    Voidratio50kPa = "1.12",
-            //    Voidratio100kPa = "1.04",
-            //    Voidratio200kPa = "0.96",
-            //    Voidratio300kPa = "0.88",
-            //    Voidratio400kPa = "0.8"
-            //};
-            //Soilinformation g = new Soilinformation
-            //{
-            //    SoilThickness = "4",
-            //    SoilUnitWeight = "18",
-            //    Haswater = 0,
-            //    Voidratio0kPa = "1.2",
-            //    Voidratio50kPa = "1.12",
-            //    Voidratio100kPa = "1.04",
-            //    Voidratio200kPa = "0.96",
-            //    Voidratio300kPa = "0.88",
-            //    Voidratio400kPa = "0.8"
-            //};
             
             soilinformationsItems.Add(c);
             soilinformationsItems.Add(d);
@@ -470,10 +433,12 @@ namespace Chenjiangcesuan
             if (ok1 != null && ok1.Value == true)
             {
                 finalresult finalwindow = new finalresult();
+                //最终结果输入到框中
+                finalwindow.textbox_finalresult.Text = Convert.ToString(soilcalculatefinals[soilcalculatefinals.Count - 1].TotalDeformationofSoilLayer);
                 finalwindow.Owner = this;
                 finalwindow.WindowStartupLocation = WindowStartupLocation.CenterOwner;
                 finalwindow.Final_Result.ItemsSource = soilcalculatefinals;
-                bool? ok2 = finalwindow.ShowDialog();
+                bool? ok2 = finalwindow.ShowDialog();            
             }
 
         }
