@@ -307,11 +307,14 @@ namespace Chenjiangcesuan
             double _selfstress = get_selfstress();//基底处的自重应力
             double _additionalstress = get_aasb();//基底平均附加应力
 
-            //移除基底以上土层 至此soilinformationsItems不再变化          
+            //移除基底以上土层          
             for (int i = 0; i <= get_baseindex(soilinformationsItems); i++)
             {
                 soilinformationsItems.RemoveAt(0);    //每次移除第一个元素    
             }
+
+            //厚土层智能分层
+            get_intelligentlayering(soilinformationsItems);
 
             //初始化result集合
             for (int i=0;i<=soilinformationsItems.Count;i++)
@@ -440,8 +443,64 @@ namespace Chenjiangcesuan
                 finalwindow.Final_Result.ItemsSource = soilcalculatefinals;
                 bool? ok2 = finalwindow.ShowDialog();            
             }
-
         }
+
+        //厚土层智能分解（基底以下）
+        private void get_intelligentlayering(ObservableCollection<Soilinformation> items)
+        {
+            double flag = 0.5;//划分厚度 用户可自定义            
+            
+            //循环直到没有厚度大于1m的土层
+            for (int i=0;i<soilinformationsItems.Count;i++)
+            {
+                if(Convert.ToDouble(soilinformationsItems[i].SoilThickness)>flag)
+                {
+                    int a = 0;//单层划分计数器
+                    double b =Convert.ToDouble(soilinformationsItems[i].SoilThickness);
+                    do//进行do循环，当b>=flag时跳出循环
+                    {
+                        b -= flag;
+                        a+=1;
+                    }
+                    while (b>flag);
+
+                    Soilinformation intelligentlayer_1 = new Soilinformation
+                    {
+                        SoilThickness =Convert.ToString(flag),
+                        SoilUnitWeight = soilinformationsItems[i].SoilUnitWeight,
+                        Haswater = soilinformationsItems[i].Haswater,
+                        Voidratio0kPa = soilinformationsItems[i].Voidratio0kPa,
+                        Voidratio50kPa = soilinformationsItems[i].Voidratio50kPa,
+                        Voidratio100kPa = soilinformationsItems[i].Voidratio100kPa,
+                        Voidratio200kPa = soilinformationsItems[i].Voidratio200kPa,
+                        Voidratio300kPa = soilinformationsItems[i].Voidratio300kPa,
+                        Voidratio400kPa = soilinformationsItems[i].Voidratio400kPa
+                    };                   
+
+                    Soilinformation intelligentlayer_2 = new Soilinformation
+                    {
+                        SoilThickness = Convert.ToString(b),
+                        SoilUnitWeight = soilinformationsItems[i].SoilUnitWeight,
+                        Haswater = soilinformationsItems[i].Haswater,
+                        Voidratio0kPa = soilinformationsItems[i].Voidratio0kPa,
+                        Voidratio50kPa = soilinformationsItems[i].Voidratio50kPa,
+                        Voidratio100kPa = soilinformationsItems[i].Voidratio100kPa,
+                        Voidratio200kPa = soilinformationsItems[i].Voidratio200kPa,
+                        Voidratio300kPa = soilinformationsItems[i].Voidratio300kPa,
+                        Voidratio400kPa = soilinformationsItems[i].Voidratio400kPa
+                    };
+                    for (int c = 0; c < a; c++)
+                    {
+                        soilinformationsItems.Insert(i, intelligentlayer_1);
+                    }
+                    soilinformationsItems.Insert(i +a, intelligentlayer_2);
+                    //移除被分解土层
+                    soilinformationsItems.Remove(soilinformationsItems[i+a+1]);
+                }
+            }
+        }
+
+
 
         //孔隙比
         private double get_voidratio(int i,double a)
