@@ -81,20 +81,20 @@ namespace Chenjiangcesuan
         private double _totalstressofsoillayer;
 
         //受压前孔隙比e1i
-        public double E1i
+        public decimal E1i
         {
             get { return _e1i; }
             set { _e1i = value; NotifyPropertyChanged("E1i"); }
         }
-        private double _e1i;
+        private decimal _e1i;
 
         //受压后孔隙比e2i
-        public double E2i
+        public decimal E2i
         {
             get { return _e2i; }
             set { _e2i = value; NotifyPropertyChanged("E2i"); }
         }
-        private double _e2i;
+        private decimal _e2i;
 
         //压缩模量Esi
         public double Esi
